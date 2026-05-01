@@ -1,26 +1,115 @@
 @import "tailwindcss";
 
+/* Design tokens — see /paper spec doc */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Color */
+  --color-bg: #f4f4f5;
+  --color-surface: #ffffff;
+  /* Slightly darker than bg — used for interactive hover fills, placeholders. */
+  --color-hover-bg: #e4e4e7;
+  /* Softer hover, half-step between bg and hover-bg — used inside cards/rows. */
+  --color-hover-bg-soft: #ececee;
+  /* Semantic state colors */
+  --color-success: #15803d;
+  --color-ink: #3f3f46;
+  --color-ink-muted: #3f3f46bf;
+  --color-ink-subtle: #52525bbf;
+  --color-ink-faint: #a1a1aa;
+  --color-accent: #27272a;
+  --color-accent-hover: #3f3f46;
+  --color-on-accent: #f4f4f5;
+  --color-rule: #09090b0d;
+  --color-rule-strong: #09090b1a;
+
+  /* Shadow tokens */
+  --shadow-warm: 0 2px 2px #3f3f4626;
+  --shadow-bar: 0 2px 2px #3f3f4626;
+  --shadow-chip:
+    inset 0 2px 3px #3f3f460d,
+    0 2px 2px #3f3f4626;
+  --shadow-chip-hover:
+    inset 0 2px 3px #3f3f460d,
+    0 4px 10px #3f3f4640;
+  --shadow-avatar:
+    0 1px 2px #00000066,
+    0 4px 12px #00000033;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --duration-quick: 120ms;
+  --duration-base: 200ms;
+  --duration-medium: 320ms;
+  --duration-slow: 600ms;
+  --duration-hero: 900ms;
+
+  /* Layout */
+  --container-max: 1024px;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-bg: var(--color-bg);
+  --color-surface: var(--color-surface);
+  --color-hover-bg: var(--color-hover-bg);
+  --color-hover-bg-soft: var(--color-hover-bg-soft);
+  --color-success: var(--color-success);
+  --color-ink: var(--color-ink);
+  --color-ink-muted: var(--color-ink-muted);
+  --color-ink-subtle: var(--color-ink-subtle);
+  --color-ink-faint: var(--color-ink-faint);
+  --color-accent: var(--color-accent);
+  --color-accent-hover: var(--color-accent-hover);
+  --color-on-accent: var(--color-on-accent);
+  --color-rule: var(--color-rule);
+  --color-rule-strong: var(--color-rule-strong);
+
+  --font-display: var(--font-display);
+  --font-mono: var(--font-mono);
+
+  --ease-out: var(--ease-out);
+  --ease-standard: var(--ease-standard);
+  --ease-in-out: var(--ease-in-out);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+html,
+body {
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-synthesis: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Reduced motion — global guard */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Cross-fade page transitions (browsers that support View Transitions) */
+@view-transition {
+  navigation: auto;
+}
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: var(--duration-base);
+  animation-timing-function: var(--ease-standard);
+}
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none !important;
+  }
+}
+
+/* Numeric figures should align across rows */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
 }

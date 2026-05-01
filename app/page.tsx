@@ -1,65 +1,232 @@
-import Image from "next/image";
+import { Avatar } from "@/components/ui/avatar";
+import { ArrowDown, ArrowRight, Button } from "@/components/ui/button";
+import { Container } from "@/components/ui/container";
+import { Eyebrow } from "@/components/ui/eyebrow";
+import { MeshBackdrop } from "@/components/ui/mesh-backdrop";
+import { Reveal } from "@/components/ui/reveal";
+import { StripeBand } from "@/components/ui/stripe-band";
+import { Header } from "@/components/blocks/header";
+import { StatStrip } from "@/components/blocks/stat-strip";
+import { CaseStudyTile } from "@/components/blocks/case-study-tile";
+import { SkillList } from "@/components/blocks/skill-list";
+import { ProfileCard } from "@/components/blocks/profile-card";
+import { Footer } from "@/components/blocks/footer";
+import { LINKS } from "@/lib/links";
+
+const heroStats = [
+  { value: "$1B+", label: "Peak market cap reached" },
+  { value: "180K+", label: "Peak daily concurrent users" },
+  { value: "$40M+", label: "Total sales achieved" },
+  { value: "#1 Trending", label: "Google Play Canada, 2019" },
+];
+
+import type { CaseStudyPalette } from "@/components/blocks/case-study-tile";
+
+const cases: Array<{
+  href: string;
+  year: string;
+  project: string;
+  headline: string;
+  imageSrc?: string;
+  stats: Array<{ value: string; label: string }>;
+  palette: CaseStudyPalette;
+}> = [
+  {
+    href: "/raijin",
+    year: "2025",
+    project: "Raijin",
+    headline:
+      "How rapid AI prototyping unlocked a new flow for 180K users.",
+    stats: [
+      { value: "60%", label: "TTV reduction" },
+      { value: "47%", label: "Feature adoption" },
+    ],
+    palette: {
+      colors: ["#E4E4E7", "#A5B4FC", "#F9A8D4", "#D8B4FE"],
+      offset: [-0.3, 0.3],
+    },
+  },
+  {
+    href: "/partners",
+    year: "2025",
+    project: "Raijin",
+    headline:
+      "How to scale and control design quality across 40+ external partners.",
+    stats: [
+      { value: "40+", label: "External partners" },
+      { value: "3h+", label: "Time saved per campaign" },
+    ],
+    palette: {
+      colors: ["#E4E4E7", "#7DD3FC", "#6EE7B7", "#67E8F9"],
+      offset: [0.4, 0.2],
+    },
+  },
+  {
+    href: "/ex-populus",
+    year: "2024",
+    project: "Ex Populus",
+    headline: "Why we chose not to build a design system from scratch.",
+    stats: [
+      { value: "50%", label: "Reduction in development time" },
+      { value: "80%", label: "Reduction in time to first production UI" },
+    ],
+    palette: {
+      colors: ["#E4E4E7", "#FDBA74", "#F9A8D4", "#FCD34D"],
+      offset: [-0.2, 0.5],
+    },
+  },
+  {
+    href: "/xai",
+    year: "2023",
+    project: "Xai",
+    headline:
+      "Why we built a consumer-facing UI for a product that didn’t need one, and made $40M.",
+    stats: [
+      { value: "$1B+", label: "Peak market cap" },
+      { value: "$40M+", label: "Total sales" },
+    ],
+    palette: {
+      colors: ["#E4E4E7", "#C4B5FD", "#D8B4FE", "#A5B4FC"],
+      offset: [0.4, 0.4],
+    },
+  },
+];
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
+    <>
+      <Header />
+
+      {/* Hero */}
+      <section className="relative isolate flex flex-col items-center gap-8 px-6 md:px-12 pt-16 md:pt-24 pb-20">
+        <Reveal
+          delay={1500}
+          translate={0}
+          className="pointer-events-none absolute inset-0 -z-10"
+        >
+          <MeshBackdrop
+            colors={["#F4F4F5", "#E1E2E7", "#E7E4E6", "#DEE0E1", "#E4E3E8"]}
+            offset={[-0.1, 0.4]}
+            speed={0.08}
+            blur={56}
+            fade="up"
+            className="opacity-70"
+          />
+        </Reveal>
+        <Reveal delay={80}>
+          <Avatar size="lg" src="/jerry.webp" alt="Jerry Kou" />
+        </Reveal>
+        <Reveal delay={200}>
+          <div className="flex flex-col items-center gap-6">
+            <h1 className="font-display text-[40px] md:text-[48px] font-normal tracking-[-0.05em] leading-[1.25] text-center text-ink max-w-[24ch]">
+              <span className="font-bold">AI-native product designer.</span>
+              <br />I design, code, and ship products that scale.
+            </h1>
+            <p className="font-display text-[18px] md:text-[20px] leading-[1.5] text-ink-muted text-center max-w-[60ch]">
+              5+ years of experience in projects that generated $40M+ in sales
+              and reached 180k+ daily concurrent users.
+            </p>
+          </div>
+        </Reveal>
+        <Reveal delay={440}>
+          <div className="flex gap-2">
+            <Button
+              variant="filled"
+              size="lg"
+              href={LINKS.calendar}
+              target="_blank"
+              rel="noopener"
+            >
+              Book a call
+              <ArrowRight motion="btn-x" className="h-[18px] w-[18px]" />
+            </Button>
+            <Button
+              variant="outline"
+              size="lg"
+              href={LINKS.resume}
+              target="_blank"
+              rel="noopener"
+            >
+              Resume
+              <ArrowDown motion="btn-y-down" className="h-[18px] w-[18px]" />
+            </Button>
+          </div>
+        </Reveal>
+      </section>
+
+      {/* Stat strip */}
+      <Reveal delay={600}>
+        <StatStrip stats={heroStats} />
+      </Reveal>
+
+      {/* Case study grid */}
+      <section className="pt-24 pb-32">
+        <Container>
+          <div className="grid gap-x-8 gap-y-20 md:grid-cols-2">
+            {cases.map((c, i) => (
+              <Reveal key={c.href} delay={(i % 2) * 80}>
+                <CaseStudyTile {...c} />
+              </Reveal>
+            ))}
+          </div>
+        </Container>
+      </section>
+
+      {/* About + skills */}
+      <section className="pb-24">
+        <Container>
+          <Reveal>
+          <div className="flex flex-col gap-12 md:flex-row md:gap-16">
+            <div className="flex flex-1 flex-col gap-6">
+              <Eyebrow>About me</Eyebrow>
+              <h2 className="font-display text-[28px] md:text-[32px] font-normal tracking-[-0.05em] leading-[1.1] text-ink">
+                Hi, I&rsquo;m Jerry.
+              </h2>
+              <div className="flex flex-col gap-4 text-[20px] leading-[1.5] text-ink-muted">
+                <p>
+                  I&rsquo;m a product designer with 5+ years of experience
+                  shipping 0→1 products that made tens of millions of dollars
+                  and spawned multiple imitators.
+                </p>
+                <p>
+                  I believe in an iterative, MVP-based approach grounded in
+                  strong market research, and a strategy that focuses on fast
+                  shipping and constant testing.
+                </p>
+                <p>
+                  I am an early adopter of new AI tools and workflows, and I
+                  experiment constantly to find the best approaches.
+                </p>
+              </div>
+            </div>
+            <div className="flex flex-1 justify-end">
+              <div className="w-full md:w-[80%]">
+                <SkillList />
+              </div>
+            </div>
+          </div>
+          </Reveal>
+        </Container>
+      </section>
+
+      {/* Stripe above the ProfileCard, matching desktop spec */}
+      <StripeBand />
+
+      <section className="relative isolate py-16">
+        <MeshBackdrop
+          colors={["#F4F4F5", "#E7E3DE", "#E4E3E8", "#DEE0E1", "#E7E4E6"]}
+          offset={[0.2, -0.3]}
+          speed={0.07}
+          blur={64}
+          fade="down"
+          className="opacity-70"
         />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+        <Container>
+          <ProfileCard />
+        </Container>
+      </section>
+
+      <Footer />
+    </>
   );
 }
