@@ -2,7 +2,6 @@ import { Avatar } from "@/components/ui/avatar";
 import { ArrowDown, ArrowRight, Button } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { Eyebrow } from "@/components/ui/eyebrow";
-import { MeshBackdrop } from "@/components/ui/mesh-backdrop";
 import { Reveal } from "@/components/ui/reveal";
 import { StripeBand } from "@/components/ui/stripe-band";
 import { Header } from "@/components/blocks/header";
@@ -98,21 +97,7 @@ export default function Home() {
       <Header />
 
       {/* Hero */}
-      <section className="relative isolate flex flex-col items-center gap-8 px-6 md:px-12 pt-16 md:pt-24 pb-20">
-        <Reveal
-          delay={1500}
-          translate={0}
-          className="pointer-events-none absolute inset-0 -z-10"
-        >
-          <MeshBackdrop
-            colors={["#F4F4F5", "#E1E2E7", "#E7E4E6", "#DEE0E1", "#E4E3E8"]}
-            offset={[-0.1, 0.4]}
-            speed={0.08}
-            blur={56}
-            fade="up"
-            className="opacity-70"
-          />
-        </Reveal>
+      <section className="flex flex-col items-center gap-8 px-6 md:px-12 pt-16 md:pt-24 pb-20">
         <Reveal delay={80}>
           <Avatar size="lg" src="/jerry.webp" alt="Jerry Kou" />
         </Reveal>
@@ -212,15 +197,7 @@ export default function Home() {
       {/* Stripe above the ProfileCard, matching desktop spec */}
       <StripeBand />
 
-      <section className="relative isolate py-16">
-        <MeshBackdrop
-          colors={["#F4F4F5", "#E7E3DE", "#E4E3E8", "#DEE0E1", "#E7E4E6"]}
-          offset={[0.2, -0.3]}
-          speed={0.07}
-          blur={64}
-          fade="down"
-          className="opacity-70"
-        />
+      <section className="py-16">
         <Container>
           <ProfileCard />
         </Container>

@@ -1,15 +1,14 @@
 "use client";
 
-import { useEffect, useRef, useState, type ElementType } from "react";
+import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/cn";
 
-const PREFERS_REDUCED =
-  "(prefers-reduced-motion: reduce)" as const;
+const PREFERS_REDUCED = "(prefers-reduced-motion: reduce)" as const;
 
 /**
  * Wraps content in an intersection-observer-triggered reveal.
  * - Fades in (opacity 0→1) and lifts (translateY 12→0)
- * - 600ms ease-out, fires once per instance
+ * - 900ms ease-out, fires once per instance
  * - `delay` lets the parent stagger siblings (e.g. hero items)
  * - Auto-reveals immediately under prefers-reduced-motion
  *
@@ -19,19 +18,17 @@ const PREFERS_REDUCED =
 export function Reveal({
   children,
   delay = 0,
-  as: Tag = "div",
   className,
   duration = 900,
   translate = 12,
 }: {
   children: React.ReactNode;
   delay?: number;
-  as?: ElementType;
   className?: string;
   duration?: number;
   translate?: number;
 }) {
-  const ref = useRef<HTMLElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
   const [revealed, setRevealed] = useState(false);
 
   useEffect(() => {
@@ -59,7 +56,7 @@ export function Reveal({
   }, []);
 
   return (
-    <Tag
+    <div
       ref={ref}
       className={cn(className)}
       style={{
@@ -70,6 +67,6 @@ export function Reveal({
       }}
     >
       {children}
-    </Tag>
+    </div>
   );
 }
