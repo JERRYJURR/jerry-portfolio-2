@@ -5,5 +5,5 @@ export const LINKS = {
   email: "jerry.y.kou@gmail.com",
   phone: "+17788991213",
   phoneDisplay: "+1 (778) 899-1213",
-  resume: "/resume-placeholder.pdf",
+  resume: "/resume.pdf",
 } as const;
