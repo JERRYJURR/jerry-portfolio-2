@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { ArrowRight } from "@/components/ui/button";
-import { MediaFrame, type MediaPalette } from "@/components/ui/media-frame";
+import { CaseImage } from "@/components/ui/case-image";
+import type { MediaPalette } from "@/components/ui/media-frame";
 
 export function NextCaseCard({
   href,
@@ -62,14 +63,7 @@ export function NextCaseCard({
           </div>
         </div>
         <div className="relative flex-1">
-          <MediaFrame
-            aspect="4/3"
-            padding={16}
-            src={imageSrc}
-            alt={headline}
-            palette={palette}
-            className="!rounded-2xl h-full"
-          />
+          <CaseImage src={imageSrc} alt={headline} palette={palette} aspect="4/3" padding={32} hoverScale />
         </div>
       </div>
     </Link>

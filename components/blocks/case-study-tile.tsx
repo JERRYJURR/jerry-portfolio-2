@@ -86,7 +86,9 @@ function CaseThumbnail({
         <img
           src={src}
           alt={alt}
-          className="block w-full object-cover object-top"
+          className="block w-full object-cover object-top
+            transition-transform duration-[var(--duration-medium)] ease-[var(--ease-standard)]
+            group-hover:scale-[1.015]"
           style={{ filter: IMAGE_SHADOW }}
         />
       </div>

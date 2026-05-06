@@ -47,6 +47,7 @@ export const caseStudies: Record<string, CaseStudy> = {
     role: "Lead Designer",
     yearRange: "Q2-Q3 2025",
     headline: "How rapid AI prototyping unlocked a new flow for 180K users.",
+    heroImage: "/raijin-thumb.png",
     overview: [
       "Raijin is a rewards platform where users earn prize entries by completing tasks in partner-run campaigns. The more tasks you complete, the better your odds in each prize pool.",
       "To maximize their odds, users should be doing every task across every campaign. They weren’t. Why?",
@@ -98,6 +99,7 @@ export const caseStudies: Record<string, CaseStudy> = {
       slug: "partners",
       headline:
         "How to scale and control design quality across 40+ external partners.",
+      imageSrc: "/partners-thumb.png",
     },
     palette: {
       colors: ["#E4E4E7", "#A5B4FC", "#F9A8D4", "#D8B4FE"],
@@ -113,6 +115,7 @@ export const caseStudies: Record<string, CaseStudy> = {
     yearRange: "Q1 2025",
     headline:
       "How to scale and control design quality across 40+ external partners.",
+    heroImage: "/partners-thumb.png",
     overview: [
       "Raijin is a rewards platform where users earn prize entries by completing tasks in partner-run campaigns. Assets for each campaign could either be produced by internal designers or external partner-side designers.",
       "Raijin’s partner pipeline grew from a handful of campaigns to 40+ external partners shipping concurrently. Every campaign needed custom asset work, and that work was breaking down at handoff.",
@@ -185,6 +188,7 @@ export const caseStudies: Record<string, CaseStudy> = {
     next: {
       slug: "ex-populus",
       headline: "Why we chose not to build a design system from scratch.",
+      imageSrc: "/ex-populus-thumb.png",
     },
     palette: {
       colors: ["#E4E4E7", "#7DD3FC", "#6EE7B7", "#67E8F9"],
@@ -199,6 +203,7 @@ export const caseStudies: Record<string, CaseStudy> = {
     role: "Lead Designer",
     yearRange: "Q3 2024",
     headline: "Why we chose not to build a design system from scratch.",
+    heroImage: "/ex-populus-thumb.png",
     overview: [
       "Ex Populus was building a card-based trading game and needed a web UI. When I joined the team, the project was carrying significant design debt that was slowing every dev and QA cycle.",
     ],
@@ -259,6 +264,7 @@ export const caseStudies: Record<string, CaseStudy> = {
     next: {
       slug: "xai",
       headline: "Why we built a consumer-facing UI for a product that didn’t need one.",
+      imageSrc: "/xai-thumb.png",
     },
     palette: {
       colors: ["#E4E4E7", "#FDBA74", "#F9A8D4", "#FCD34D"],
@@ -274,6 +280,7 @@ export const caseStudies: Record<string, CaseStudy> = {
     yearRange: "Q4 2023",
     headline:
       "Why we built a consumer-facing UI for a product that didn’t need one, and made $40M.",
+    heroImage: "/xai-thumb.png",
     overview: [
       "Xai Sentry Nodes are apps that users can run on their computer. Once they buy a key, they’ll be able to receive rewards for running it.",
       "Products like this didn’t ship as consumer apps. They shipped as CLI tools, configured by hand, run from a terminal. That was the category convention when we started.",
@@ -314,6 +321,7 @@ export const caseStudies: Record<string, CaseStudy> = {
       slug: "raijin",
       headline:
         "How rapid AI prototyping unlocked a new flow for 180K users.",
+      imageSrc: "/raijin-thumb.png",
     },
     palette: {
       colors: ["#E4E4E7", "#C4B5FD", "#D8B4FE", "#A5B4FC"],

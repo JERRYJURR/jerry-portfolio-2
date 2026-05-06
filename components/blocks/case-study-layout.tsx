@@ -1,5 +1,5 @@
 import { Container } from "@/components/ui/container";
-import { MediaFrame } from "@/components/ui/media-frame";
+import { CaseImage } from "@/components/ui/case-image";
 import { Reveal } from "@/components/ui/reveal";
 import { ScrollProgress } from "@/components/ui/scroll-progress";
 import { Header } from "@/components/blocks/header";
@@ -38,12 +38,11 @@ export function CaseStudyLayout({ data }: { data: CaseStudy }) {
       <section className="px-6 md:px-12 pb-12">
         <Container>
           <Reveal delay={240}>
-            <MediaFrame
-              aspect="32/15"
-              padding={16}
+            <CaseImage
               src={data.heroImage}
               alt={data.headline}
               palette={data.palette}
+              aspect="32/15"
             />
           </Reveal>
         </Container>
@@ -146,18 +145,8 @@ function BlockRenderer({
       <section className="px-6 md:px-12 py-12">
         <Container>
           <div className="grid gap-6 md:grid-cols-2">
-            <MediaFrame
-              aspect="4/3"
-              padding={16}
-              src={a}
-              palette={palette}
-            />
-            <MediaFrame
-              aspect="4/3"
-              padding={16}
-              src={b}
-              palette={palette}
-            />
+            <CaseImage src={a} palette={palette} aspect="4/3" />
+            <CaseImage src={b} palette={palette} aspect="4/3" />
           </div>
         </Container>
       </section>
@@ -168,12 +157,7 @@ function BlockRenderer({
     return (
       <section className="px-6 md:px-12 py-12">
         <Container>
-          <MediaFrame
-            aspect="32/15"
-            padding={16}
-            src={block.image}
-            palette={palette}
-          />
+          <CaseImage src={block.image} palette={palette} aspect="32/15" />
         </Container>
       </section>
     );
