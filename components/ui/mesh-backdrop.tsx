@@ -12,6 +12,8 @@ export type MeshBackdropProps = {
   fade?: "up" | "down";
   /** Override the mask entirely. */
   maskImage?: string;
+  /** Freeze the animation (e.g. when the parent section is not hovered). */
+  paused?: boolean;
   className?: string;
 };
 
@@ -20,6 +22,9 @@ export type MeshBackdropProps = {
  * Heavily blurred, masked to fade out in one direction, hidden under
  * `prefers-reduced-motion`. Wrap in a `relative isolate` parent and put
  * content above with `relative` (or explicit z) so the mesh stays behind.
+ *
+ * Pass `paused` to freeze animation when the section is idle — reduces GPU
+ * usage by stopping the shader's time uniform from advancing.
  */
 export function MeshBackdrop({
   colors,
@@ -28,6 +33,7 @@ export function MeshBackdrop({
   blur = 48,
   fade = "up",
   maskImage,
+  paused = false,
   className,
 }: MeshBackdropProps) {
   const computedMask =
@@ -51,7 +57,7 @@ export function MeshBackdrop({
     >
       <MeshGradient
         colors={colors}
-        speed={speed}
+        speed={paused ? 0 : speed}
         distortion={0.7}
         swirl={0.4}
         grainMixer={0}

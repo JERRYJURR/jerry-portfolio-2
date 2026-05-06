@@ -2,6 +2,7 @@
 
 import { MeshGradient } from "@paper-design/shaders-react";
 import { cn } from "@/lib/cn";
+import { useState } from "react";
 
 export type MediaPalette = {
   /** 3–5 colors for the mesh gradient. First color usually matches the page bg. */
@@ -21,7 +22,8 @@ const defaultPalette: MediaPalette = {
  * If neither is provided, the gradient placeholder fills the frame (empty state).
  *
  * The placeholder is an animated mesh gradient (subtle, blurred, bottom-anchored)
- * with a static fallback for reduced-motion users.
+ * with a static fallback for reduced-motion users. The gradient only animates
+ * on hover to reduce idle GPU usage.
  */
 export function MediaFrame({
   src,
@@ -43,6 +45,7 @@ export function MediaFrame({
   innerClassName?: string;
   children?: React.ReactNode;
 }) {
+  const [hovered, setHovered] = useState(false);
   const innerRadius = 24 - padding;
   // Color is fully visible at the bottom and fades to ~5% opacity at the top.
   const fadeMask =
@@ -61,8 +64,10 @@ export function MediaFrame({
         // Tiny inner border for depth
         boxShadow: "inset 0 0 0 1px rgba(9,9,11,0.03)",
       }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
     >
-      {/* Mesh gradient placeholder (animated) */}
+      {/* Mesh gradient placeholder — animates only on hover */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 motion-reduce:hidden"
@@ -74,7 +79,7 @@ export function MediaFrame({
       >
         <MeshGradient
           colors={palette.colors}
-          speed={0.18}
+          speed={hovered ? 0.18 : 0}
           distortion={0.75}
           swirl={0.45}
           grainMixer={0}
