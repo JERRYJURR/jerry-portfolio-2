@@ -36,6 +36,7 @@ const cases: Array<{
     project: "Raijin",
     headline:
       "How rapid AI prototyping unlocked a new flow for 180K users.",
+    imageSrc: "/raijin-thumb.png",
     stats: [
       { value: "60%", label: "TTV reduction" },
       { value: "47%", label: "Feature adoption" },
@@ -51,6 +52,7 @@ const cases: Array<{
     project: "Raijin",
     headline:
       "How to scale and control design quality across 40+ external partners.",
+    imageSrc: "/partners-thumb.png",
     stats: [
       { value: "40+", label: "External partners" },
       { value: "3h+", label: "Time saved per campaign" },
@@ -65,6 +67,7 @@ const cases: Array<{
     year: "2024",
     project: "Ex Populus",
     headline: "Why we chose not to build a design system from scratch.",
+    imageSrc: "/ex-populus-thumb.png",
     stats: [
       { value: "50%", label: "Reduction in development time" },
       { value: "80%", label: "Reduction in time to first production UI" },
@@ -80,6 +83,7 @@ const cases: Array<{
     project: "Xai",
     headline:
       "Why we built a consumer-facing UI for a product that didn’t need one, and made $40M.",
+    imageSrc: "/xai-thumb.png",
     stats: [
       { value: "$1B+", label: "Peak market cap" },
       { value: "$40M+", label: "Total sales" },
@@ -147,7 +151,7 @@ export default function Home() {
       {/* Case study grid */}
       <section className="pt-24 pb-32">
         <Container>
-          <div className="grid gap-x-8 gap-y-20 md:grid-cols-2">
+          <div className="grid gap-x-6 gap-y-20 md:grid-cols-2">
             {cases.map((c, i) => (
               <Reveal key={c.href} delay={(i % 2) * 80}>
                 <CaseStudyTile {...c} />
