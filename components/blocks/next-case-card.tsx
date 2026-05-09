@@ -6,7 +6,7 @@ import type { MediaPalette } from "@/components/ui/media-frame";
 
 // Fixed pixel height of the bleed thumbnail. Same value across all next-case
 // cards so they're uniform regardless of which case is up next. Tweak here.
-const THUMB_HEIGHT = 238;
+const THUMB_HEIGHT = 256;
 
 export function NextCaseCard({
   href,
