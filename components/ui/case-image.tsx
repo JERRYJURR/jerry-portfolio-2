@@ -6,6 +6,9 @@ import { cn } from "@/lib/cn";
 import type { MediaPalette } from "@/components/ui/media-frame";
 
 const FALLBACK_COLORS = ["#F4F4F5", "#C7D2FE", "#FBCFE8", "#A5F3FC"];
+// Reference container width for bleed math — the inner aspect-ratio is
+// computed once at this width and applies at every viewport size.
+const BLEED_REF_WIDTH = 1024;
 const GRADIENT_MASK = "linear-gradient(to bottom, black 0%, rgba(0,0,0,0.4) 100%)";
 const GRADIENT_FALLBACK =
   "linear-gradient(in oklab 180deg, oklab(80.2% 0 0 / 5%) 0%, oklab(80.2% 0 0 / 25%) 100%)";
@@ -71,8 +74,15 @@ export function CaseImage({
     : undefined;
 
   // Inner sizing: explicit pixel/string height (for callers like NextCaseCard
-  // that need a fixed visible height) OR aspect-ratio (responsive default,
-  // bleeds the same proportion of the image at any width).
+  // that need a fixed visible height) OR aspect-ratio (responsive default).
+  //
+  // Aspect-ratio formula (matches the legacy fixed-pixel baseline so existing
+  // bleedFactor values keep their meaning):
+  //   visible_at_max = (image_height_at_max − 2·padding) · factor
+  //   inner_aspect    = inner_width_at_max / visible_at_max
+  // The same aspect ratio applies at every viewport width, so the proportional
+  // bleed is constant. Factor ≈ 1.0 → bleeds roughly 2·padding worth; <1 bleeds
+  // more, >1 bleeds less.
   let innerStyle: React.CSSProperties | undefined;
   if (bleed && src) {
     if (bleedHeight !== undefined) {
@@ -80,9 +90,12 @@ export function CaseImage({
         height: typeof bleedHeight === "number" ? `${bleedHeight}px` : bleedHeight,
       };
     } else {
-      innerStyle = {
-        aspectRatio: `${src.width} / ${src.height * bleedFactor}`,
-      };
+      const innerWidthMax = BLEED_REF_WIDTH - 2 * padding;
+      const imageHeightMax = innerWidthMax * (src.height / src.width);
+      const visibleMax = (imageHeightMax - 2 * padding) * bleedFactor;
+      if (visibleMax > 0) {
+        innerStyle = { aspectRatio: `${innerWidthMax} / ${visibleMax}` };
+      }
     }
   }
 
