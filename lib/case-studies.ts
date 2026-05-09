@@ -218,7 +218,7 @@ export const caseStudies: Record<string, CaseStudy> = {
         kind: "section",
         heading: "What was broken?",
         paragraphs: [
-          "Partner success managers were the main interface between partners and our team, but they weren’t designers. They didn’t have the expertise to pass through clear design specs or requirements. As a result, we’d get assets that we couldn’t use due to incorrect sizing, safe points, quality, or formats.",
+          "Partner success managers were the main interface between partners and our team, but they weren’t designers. They didn’t have the expertise to pass through clear design specs or requirements. As a result, we’d get assets that we couldn’t use due to incorrect sizing, safe zones, quality, or formats.",
           "When we did the work in-house and sent it over to the partners to be proofed, they’d push back with changes that sometimes didn’t conform to the platform requirements. We’d have to negotiate back, and this could go on for a couple of rounds, creating more unnecessary friction.",
         ],
       },
@@ -230,11 +230,11 @@ export const caseStudies: Record<string, CaseStudy> = {
       },
       {
         kind: "section",
-        heading: "The fix: a unified handoff spec",
+        heading: "The fix: a unified handoff system",
         paragraphs: [
           "I created a Notion doc that housed every spec and requirement in exhaustive detail, and updated it constantly. BD and Marketing could send the same link to every partner, and know for certain that it was up-to-date.",
-          "It contained working examples for each deliverable: what not to do and why, examples of what you should do, and diagrams showing safe zones and danger zones. It had links to pre-built Figma and Photoshop templates that any designer (on our side or their side) could use to produce assets that were much more consistently up-to-spec.",
-          "Additionally, to shorten the proofing cycle, I included Figma and Photoshop mockup templates that designers could easily drag and drop their assets into to see how it would look on the platform in production, thus cutting more unneeded negotiations.",
+          "It contained working examples for each deliverable: what not to do and why, examples of what you should do, and diagrams showing safe zones and danger zones. It had links to pre-built Figma and Photoshop templates that any designer (on our side or their side) could use to produce assets that were up-to-spec.",
+          "Additionally, to shorten the proofing cycle, I included Figma and Photoshop mockup templates that designers could easily drag and drop their assets into to see how it would look on the platform in production, thus cutting more unnecessary negotiations.",
         ],
       },
       {
