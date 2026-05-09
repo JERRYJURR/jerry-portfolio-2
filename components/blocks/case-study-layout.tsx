@@ -120,7 +120,7 @@ export function CaseStudyLayout({ data }: { data: CaseStudy }) {
       </section>
 
       {/* Next case */}
-      <section className="pt-16 pb-16">
+      <section className="pt-32 md:pt-40 pb-16">
         <Container>
           <Reveal>
             <NextCaseCard
