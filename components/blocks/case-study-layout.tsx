@@ -47,6 +47,8 @@ export function CaseStudyLayout({ data }: { data: CaseStudy }) {
               palette={data.palette}
               aspect="32/15"
               preload
+              bleed={data.heroBleed}
+              bleedFactor={data.heroBleedFactor}
             />
           </Reveal>
         </Container>
