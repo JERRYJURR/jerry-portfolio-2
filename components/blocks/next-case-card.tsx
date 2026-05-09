@@ -4,6 +4,10 @@ import { ArrowRight } from "@/components/ui/button";
 import { CaseImage } from "@/components/ui/case-image";
 import type { MediaPalette } from "@/components/ui/media-frame";
 
+// Fixed pixel height of the bleed thumbnail. Same value across all next-case
+// cards so they're uniform regardless of which case is up next. Tweak here.
+const THUMB_HEIGHT = 238;
+
 export function NextCaseCard({
   href,
   headline,
@@ -72,7 +76,7 @@ export function NextCaseCard({
             padding={32}
             hoverScale
             bleed
-            bleedHeight={238}
+            bleedHeight={THUMB_HEIGHT}
             sizes="(max-width: 768px) 100vw, 512px"
           />
         </div>
