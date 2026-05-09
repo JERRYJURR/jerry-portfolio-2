@@ -22,7 +22,7 @@ export function CaseStudyLayout({ data }: { data: CaseStudy }) {
       <Header />
 
       {/* Title */}
-      <section className="px-4 md:px-12 pt-16 md:pt-24 pb-12">
+      <section className="pt-16 md:pt-24 pb-12">
         <Container>
           <Reveal delay={80}>
           <div className="flex flex-col items-center gap-4 text-center">
@@ -38,7 +38,7 @@ export function CaseStudyLayout({ data }: { data: CaseStudy }) {
       </section>
 
       {/* Hero image */}
-      <section className="px-4 md:px-12 pb-12">
+      <section className="pb-12">
         <Container>
           <Reveal delay={240}>
             <CaseImage
@@ -55,7 +55,7 @@ export function CaseStudyLayout({ data }: { data: CaseStudy }) {
       </section>
 
       {/* Overview row — text + meta card */}
-      <section className="px-4 md:px-12 pb-16">
+      <section className="pb-16">
         <Container>
           <Reveal>
           <div className="flex flex-col gap-12 md:flex-row md:gap-6">
@@ -95,7 +95,7 @@ export function CaseStudyLayout({ data }: { data: CaseStudy }) {
       </div>
 
       {/* Results */}
-      <section className="px-4 md:px-12 py-16">
+      <section className="py-16">
         <Container>
           <Reveal>
           <div className="flex flex-col gap-12 md:flex-row md:gap-6">
@@ -120,7 +120,7 @@ export function CaseStudyLayout({ data }: { data: CaseStudy }) {
       </section>
 
       {/* Next case */}
-      <section className="px-4 md:px-12 pt-16 pb-16">
+      <section className="pt-16 pb-16">
         <Container>
           <Reveal>
             <NextCaseCard
@@ -149,7 +149,7 @@ function BlockRenderer({
     const [a, b] = block.images ?? [undefined, undefined];
     const aspect = block.aspect ?? "4/3";
     return (
-      <section className="px-4 md:px-12 py-12">
+      <section className="py-12">
         <Container>
           <div className="flex flex-col gap-6">
             <div className="grid gap-6 md:grid-cols-2">
@@ -166,7 +166,7 @@ function BlockRenderer({
   if (block.kind === "imageWide") {
     const aspect = block.aspect ?? "32/15";
     return (
-      <section className="px-4 md:px-12 py-12">
+      <section className="py-12">
         <Container>
           <div className="flex flex-col gap-6">
             <CaseImage src={block.image} palette={palette} aspect={aspect} bleed={block.bleed} bleedFactor={block.bleedFactor} />
@@ -202,7 +202,7 @@ function BlockRenderer({
   if (block.aside) {
     const aside = block.aside;
     return (
-      <section className="px-4 md:px-12 py-12">
+      <section className="py-12">
         <Container>
           <div className="flex flex-col gap-12 md:flex-row md:gap-6">
             <div className="flex flex-1 flex-col gap-8">{sectionBody}</div>
@@ -258,7 +258,7 @@ function BlockRenderer({
   }
 
   return (
-    <section className="px-4 md:px-12 py-12">
+    <section className="py-12">
       <Container>
         <div className="flex w-full flex-col gap-8 md:w-1/2">{sectionBody}</div>
       </Container>

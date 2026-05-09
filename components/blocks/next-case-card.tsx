@@ -26,7 +26,7 @@ export function NextCaseCard({
     >
       <div
         className="
-          relative flex flex-col md:flex-row gap-4 md:gap-16 rounded-3xl p-3 md:p-4 overflow-clip
+          relative flex flex-col md:flex-row gap-4 md:gap-16 rounded-3xl overflow-clip
           bg-[linear-gradient(in_oklab_180deg,oklab(80.2%_0_0_/_5%)_0%,oklab(80.2%_0_0_/_10%)_100%)]
         "
       >
