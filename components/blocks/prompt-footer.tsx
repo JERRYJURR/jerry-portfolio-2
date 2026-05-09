@@ -100,7 +100,7 @@ export function PromptFooter() {
                   alt=""
                   width={16}
                   height={16}
-                  className="h-4 w-4 rounded shadow-[0_2px_3px_#00000033]"
+                  className="h-4 w-4"
                 />
                 <span className="font-mono text-[11px] leading-4 tracking-[0.1em] uppercase text-ink-subtle translate-y-[2px]">
                   Designed with Paper
@@ -112,7 +112,7 @@ export function PromptFooter() {
                   alt=""
                   width={16}
                   height={16}
-                  className="h-4 w-4 rounded shadow-[0_2px_3px_#00000033]"
+                  className="h-4 w-4"
                 />
                 <span className="font-mono text-[11px] leading-4 tracking-[0.1em] uppercase text-ink-subtle translate-y-[2px]">
                   Built with Claude Code
