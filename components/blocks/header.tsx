@@ -47,7 +47,7 @@ export function Header() {
               href={LINKS.resume}
               target="_blank"
               rel="noopener"
-              className="hidden md:inline-flex"
+              className="max-md:!h-9 max-md:!px-3.5 max-md:!text-[14px]"
             >
               Resume
               <ArrowDown motion="btn-y-down" />
