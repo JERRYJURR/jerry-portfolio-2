@@ -5,9 +5,17 @@ import { MeshGradient } from "@paper-design/shaders-react";
 import { cn } from "@/lib/cn";
 import type { MediaPalette } from "@/components/ui/media-frame";
 
+// SPEC: see /AGENTS.md — "CaseImage spec — DO NOT DEVIATE"
+//
+// Outer:    64px padding (16px mobile), rounded, overflow:clip, mesh gradient bg.
+// Inner:    height = (IMAGE_HEIGHT − 2·padding) · bleedFactor   if bleed
+//                    IMAGE_HEIGHT                                if not bleed
+//                    bleedHeight                                 if explicit (NextCaseCard)
+//           Implemented via `aspect-ratio` for responsive scaling.
+// Image:    next/image with `fill` + `object-cover object-top` — the inner
+//           div's height is authoritative; the image is cropped to fit.
+
 const FALLBACK_COLORS = ["#F4F4F5", "#C7D2FE", "#FBCFE8", "#A5F3FC"];
-// Reference container width for bleed math — the inner aspect-ratio is
-// computed once at this width and applies at every viewport size.
 const BLEED_REF_WIDTH = 1024;
 const GRADIENT_MASK = "linear-gradient(to bottom, black 0%, rgba(0,0,0,0.4) 100%)";
 const GRADIENT_FALLBACK =
@@ -15,22 +23,6 @@ const GRADIENT_FALLBACK =
 const IMAGE_SHADOW =
   "drop-shadow(rgba(0,0,0,0.25) 0px 2px 4px) drop-shadow(rgba(0,0,0,0.25) 0px 8px 16px) drop-shadow(rgba(0,0,0,0.25) 0px 32px 32px)";
 
-/**
- * Case study page image block. Mirrors the home-page thumbnail structure:
- * mesh gradient background, inset top/sides, image bleeds off the bottom.
- *
- * Two modes:
- *   - default: container grows to wrap the image with `padding` on all sides.
- *   - bleed:   inner wrapper takes a shorter aspect-ratio so the image
- *              overflows past the bottom and gets clipped by the outer
- *              `overflow: clip`. Bleed amount is constant regardless of
- *              screen width because the inner aspect = w / (h * bleedFactor).
- *
- * Padding is `padding`px on desktop and a flat 16px on mobile (overridden by
- * the !-prefixed max-md classes so they win against the inline style).
- *
- * When no src is provided, renders a gradient placeholder at the given aspect.
- */
 export function CaseImage({
   src,
   alt = "",
@@ -47,22 +39,24 @@ export function CaseImage({
   src?: StaticImageData;
   alt?: string;
   palette?: MediaPalette;
+  /** Aspect for the empty-state placeholder (no src). */
   aspect?: string;
+  /** Desktop padding in px. Mobile is hardcoded to 16px via override. */
   padding?: number;
   hoverScale?: boolean;
   preload?: boolean;
   bleed?: boolean;
-  /** How much of the image's natural height to keep visible in bleed mode (0–1). */
+  /** Per-image fudge on the bleed formula. Default 0.85. */
   bleedFactor?: number;
-  /** Override bleed inner wrapper height. Pass a number (px) or a CSS string. */
+  /** Override the inner wrapper height (px or CSS string). Used by NextCaseCard. */
   bleedHeight?: number | string;
   sizes?: string;
 }) {
   const colors = palette?.colors ?? FALLBACK_COLORS;
   const [offsetX = 0, offsetY = 0] = palette?.offset ?? [];
 
-  // Outer padding: desktop value via inline style; mobile collapsed to 16px
-  // via !-prefixed Tailwind override so it beats the inline style.
+  // Outer padding: 64/16 desktop/mobile. Bleed mode drops bottom padding so the
+  // mesh gradient hugs the visible image bottom (no gradient strip below image).
   const mobilePaddingClass = bleed
     ? "max-md:!px-4 max-md:!pt-4 max-md:!pb-0"
     : "max-md:!p-4";
@@ -73,18 +67,11 @@ export function CaseImage({
       : `${padding}px`
     : undefined;
 
-  // Inner sizing: explicit pixel/string height (for callers like NextCaseCard
-  // that need a fixed visible height) OR aspect-ratio (responsive default).
-  //
-  // Aspect-ratio formula (matches the legacy fixed-pixel baseline so existing
-  // bleedFactor values keep their meaning):
-  //   visible_at_max = (image_height_at_max − 2·padding) · factor
-  //   inner_aspect    = inner_width_at_max / visible_at_max
-  // The same aspect ratio applies at every viewport width, so the proportional
-  // bleed is constant. Factor ≈ 1.0 → bleeds roughly 2·padding worth; <1 bleeds
-  // more, >1 bleeds less.
+  // Inner sizing — translate the spec formulas into aspect-ratio so the height
+  // scales with viewport width while still satisfying the formula at the
+  // reference (1024px) width.
   let innerStyle: React.CSSProperties | undefined;
-  if (bleed && src) {
+  if (src) {
     if (bleedHeight !== undefined) {
       innerStyle = {
         height: typeof bleedHeight === "number" ? `${bleedHeight}px` : bleedHeight,
@@ -92,9 +79,11 @@ export function CaseImage({
     } else {
       const innerWidthMax = BLEED_REF_WIDTH - 2 * padding;
       const imageHeightMax = innerWidthMax * (src.height / src.width);
-      const visibleMax = (imageHeightMax - 2 * padding) * bleedFactor;
-      if (visibleMax > 0) {
-        innerStyle = { aspectRatio: `${innerWidthMax} / ${visibleMax}` };
+      const visible = bleed
+        ? (imageHeightMax - 2 * padding) * bleedFactor
+        : imageHeightMax;
+      if (visible > 0) {
+        innerStyle = { aspectRatio: `${innerWidthMax} / ${visible}` };
       }
     }
   }
@@ -110,7 +99,7 @@ export function CaseImage({
         ...(src ? {} : { aspectRatio: aspect }),
       }}
     >
-      {/* Mesh gradient background */}
+      {/* Animated mesh gradient */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 motion-reduce:hidden"
@@ -133,7 +122,7 @@ export function CaseImage({
         />
       </div>
 
-      {/* Static fallback for prefers-reduced-motion */}
+      {/* Reduced-motion fallback */}
       <div
         aria-hidden
         className="pointer-events-none absolute inset-0 hidden motion-reduce:block"
@@ -145,10 +134,15 @@ export function CaseImage({
           <Image
             src={src}
             alt={alt}
+            fill
             sizes={sizes}
             preload={preload}
             placeholder="blur"
-            className={"block w-full h-auto" + (hoverScale ? " transition-transform duration-[var(--duration-medium)] ease-[var(--ease-standard)] group-hover:scale-[1.015]" : "")}
+            className={cn(
+              "object-cover object-top",
+              hoverScale &&
+                "transition-transform duration-[var(--duration-medium)] ease-[var(--ease-standard)] group-hover:scale-[1.015]",
+            )}
             style={{ filter: IMAGE_SHADOW }}
           />
         </div>
