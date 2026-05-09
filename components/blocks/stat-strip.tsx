@@ -8,7 +8,7 @@ export function StatStrip({ stats }: { stats: Stat[] }) {
     <section aria-label="Stats" className="flex flex-col">
       <StripeBand />
       <div>
-        <div className="px-6 md:px-12">
+        <div className="px-4 md:px-12">
           <div className="mx-auto grid w-full max-w-[1024px] grid-cols-2 md:grid-cols-4">
             {stats.map((stat, i) => (
               <div

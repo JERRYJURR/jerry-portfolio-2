@@ -4,7 +4,7 @@ type Variant = "filled" | "outline";
 type Size = "sm" | "md" | "lg";
 
 const base =
-  "group/btn inline-flex items-center gap-1 rounded-full font-medium " +
+  "group/btn inline-flex items-center gap-1 whitespace-nowrap rounded-full font-medium " +
   "outline-1 outline-rule-strong shadow-[var(--shadow-chip)] " +
   "transition-[box-shadow,background-color,color] " +
   "duration-[var(--duration-medium)] ease-[var(--ease-out)] " +

@@ -4,9 +4,9 @@ import { ArrowRight } from "@/components/ui/button";
 import { CaseImage } from "@/components/ui/case-image";
 import type { MediaPalette } from "@/components/ui/media-frame";
 
-// Fixed pixel height of the bleed thumbnail. Same value across all next-case
-// cards so they're uniform regardless of which case is up next. Tweak here.
-const THUMB_HEIGHT = 256;
+// Desktop bleed thumbnail height. Mobile uses aspect-ratio bleed (image-driven)
+// since on mobile the card stacks and the thumb can scale with the viewport.
+const THUMB_HEIGHT_DESKTOP = 256;
 
 export function NextCaseCard({
   href,
@@ -26,7 +26,7 @@ export function NextCaseCard({
     >
       <div
         className="
-          relative flex gap-16 rounded-3xl p-4 overflow-clip
+          relative flex flex-col md:flex-row gap-4 md:gap-16 rounded-3xl p-3 md:p-4 overflow-clip
           bg-[linear-gradient(in_oklab_180deg,oklab(80.2%_0_0_/_5%)_0%,oklab(80.2%_0_0_/_10%)_100%)]
         "
       >
@@ -39,15 +39,15 @@ export function NextCaseCard({
             group-active:opacity-[0.05]
           "
         />
-        <div className="relative flex flex-1 flex-col justify-between gap-4 p-6">
-          <h3 className="font-display text-[32px] font-normal tracking-[-0.05em] leading-none text-ink">
+        <div className="relative flex flex-1 flex-col justify-between gap-3 md:gap-4 p-4 md:p-6 order-2 md:order-1">
+          <h3 className="font-display text-[24px] md:text-[32px] font-normal tracking-[-0.05em] leading-none text-ink">
             Next
           </h3>
-          <p className="text-[20px] leading-[1.5] text-ink-muted">
+          <p className="text-[16px] md:text-[20px] leading-[1.5] text-ink-muted">
             {headline}
           </p>
           <div className="flex items-center gap-1">
-            <span className="font-display text-[16px] font-medium text-ink">
+            <span className="font-display text-[15px] md:text-[16px] font-medium text-ink">
               <span
                 className="
                   bg-no-repeat bg-left-bottom bg-[length:0%_1px] bg-[linear-gradient(currentColor,currentColor)]
@@ -67,7 +67,7 @@ export function NextCaseCard({
             />
           </div>
         </div>
-        <div className="relative flex-1">
+        <div className="relative flex-1 order-1 md:order-2">
           <CaseImage
             src={imageSrc}
             alt={headline}
@@ -76,7 +76,7 @@ export function NextCaseCard({
             padding={32}
             hoverScale
             bleed
-            bleedHeight={THUMB_HEIGHT}
+            bleedHeight={`clamp(180px, 42vw, ${THUMB_HEIGHT_DESKTOP}px)`}
             sizes="(max-width: 768px) 100vw, 512px"
           />
         </div>

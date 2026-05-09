@@ -8,7 +8,7 @@ export function Footer() {
           is just the copyright sandwich at the very bottom. */}
       <StripeBand />
       <div>
-        <div className="px-6 md:px-12">
+        <div className="px-4 md:px-12">
           <div className="mx-auto w-full max-w-[1024px] border-x border-rule">
             <div className="flex flex-col gap-2 p-4 md:flex-row md:items-center md:justify-between">
               <div className="font-mono text-[11px] leading-4 tracking-[0.1em] uppercase text-ink-subtle">

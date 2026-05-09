@@ -2,24 +2,10 @@
 
 import Image, { type StaticImageData } from "next/image";
 import { MeshGradient } from "@paper-design/shaders-react";
+import { cn } from "@/lib/cn";
 import type { MediaPalette } from "@/components/ui/media-frame";
 
 const FALLBACK_COLORS = ["#F4F4F5", "#C7D2FE", "#FBCFE8", "#A5F3FC"];
-// Reference container width used to translate (image dimensions + padding)
-// into a fixed inner-div height for bleed mode.
-const BLEED_REF_WIDTH = 1024;
-
-/**
- * Computes the inner wrapper's pixel height for a bleed image:
- *   (image_rendered_height_at_max - 2*padding) * factor
- * This sits the image inside a shorter box so its bottom overflows past the
- * outer frame's `overflow: clip` boundary. Mirrors the home thumbnails.
- */
-function defaultBleedHeight(src: StaticImageData, padding: number, factor: number) {
-  const imageWidth = BLEED_REF_WIDTH - 2 * padding;
-  const imageHeight = imageWidth * (src.height / src.width);
-  return (imageHeight - 2 * padding) * factor;
-}
 const GRADIENT_MASK = "linear-gradient(to bottom, black 0%, rgba(0,0,0,0.4) 100%)";
 const GRADIENT_FALLBACK =
   "linear-gradient(in oklab 180deg, oklab(80.2% 0 0 / 5%) 0%, oklab(80.2% 0 0 / 25%) 100%)";
@@ -32,8 +18,13 @@ const IMAGE_SHADOW =
  *
  * Two modes:
  *   - default: container grows to wrap the image with `padding` on all sides.
- *   - bleed:   container is fixed to `aspect` with no bottom padding, so the
- *              image overflows and gets clipped (matches the home thumbnails).
+ *   - bleed:   inner wrapper takes a shorter aspect-ratio so the image
+ *              overflows past the bottom and gets clipped by the outer
+ *              `overflow: clip`. Bleed amount is constant regardless of
+ *              screen width because the inner aspect = w / (h * bleedFactor).
+ *
+ * Padding is `padding`px on desktop and a flat 16px on mobile (overridden by
+ * the !-prefixed max-md classes so they win against the inline style).
  *
  * When no src is provided, renders a gradient placeholder at the given aspect.
  */
@@ -60,32 +51,50 @@ export function CaseImage({
   bleed?: boolean;
   /** How much of the image's natural height to keep visible in bleed mode (0–1). */
   bleedFactor?: number;
-  /** Override the bleed wrapper height (px). Defaults to a per-image computed value. */
-  bleedHeight?: number;
+  /** Override bleed inner wrapper height. Pass a number (px) or a CSS string. */
+  bleedHeight?: number | string;
   sizes?: string;
 }) {
   const colors = palette?.colors ?? FALLBACK_COLORS;
   const [offsetX = 0, offsetY = 0] = palette?.offset ?? [];
 
-  const containerSizing = src
-    ? bleed
-      ? { padding: `${padding}px ${padding}px 0` }
-      : { padding: `${padding}px` }
-    : { aspectRatio: aspect };
+  // Outer padding: desktop value via inline style; mobile collapsed to 16px
+  // via !-prefixed Tailwind override so it beats the inline style.
+  const mobilePaddingClass = bleed
+    ? "max-md:!px-4 max-md:!pt-4 max-md:!pb-0"
+    : "max-md:!p-4";
 
-  const innerHeight =
-    bleed && src
-      ? (bleedHeight ?? defaultBleedHeight(src, padding, bleedFactor))
-      : undefined;
+  const outerPadding = src
+    ? bleed
+      ? `${padding}px ${padding}px 0`
+      : `${padding}px`
+    : undefined;
+
+  // Inner sizing: explicit pixel/string height (for callers like NextCaseCard
+  // that need a fixed visible height) OR aspect-ratio (responsive default,
+  // bleeds the same proportion of the image at any width).
+  let innerStyle: React.CSSProperties | undefined;
+  if (bleed && src) {
+    if (bleedHeight !== undefined) {
+      innerStyle = {
+        height: typeof bleedHeight === "number" ? `${bleedHeight}px` : bleedHeight,
+      };
+    } else {
+      innerStyle = {
+        aspectRatio: `${src.width} / ${src.height * bleedFactor}`,
+      };
+    }
+  }
 
   return (
     <div
-      className="relative"
+      className={cn("relative", mobilePaddingClass)}
       style={{
         borderRadius: 24,
         overflow: "clip",
         transform: "translateZ(0)",
-        ...containerSizing,
+        ...(outerPadding ? { padding: outerPadding } : {}),
+        ...(src ? {} : { aspectRatio: aspect }),
       }}
     >
       {/* Mesh gradient background */}
@@ -121,7 +130,7 @@ export function CaseImage({
       {src && (
         <div
           className="relative flex items-start justify-center"
-          style={innerHeight ? { height: innerHeight } : undefined}
+          style={innerStyle}
         >
           <Image
             src={src}

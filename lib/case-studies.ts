@@ -113,7 +113,7 @@ export const caseStudies: Record<string, CaseStudy> = {
         kind: "imageWide",
         image: raijin2,
         bleed: true,
-        bleedFactor: 1.1,
+        bleedFactor: 1.15,
         caption:
           "Pictured: six giveaway campaigns with wildly varying user participation rates. Ideally every giveaway should be as close to 100% as possible.",
       },
@@ -304,8 +304,6 @@ export const caseStudies: Record<string, CaseStudy> = {
       {
         kind: "imageWide",
         image: exPopulus2,
-        bleed: true,
-        bleedFactor: 1.2,
         caption:
           "Design debt: a sample of the many conflicting and disjointed button styles we had used just within a single website.",
       },
@@ -323,7 +321,7 @@ export const caseStudies: Record<string, CaseStudy> = {
         kind: "imageWide",
         image: exPopulus3,
         bleed: true,
-        bleedFactor: 1.1,
+        bleedFactor: 1.05,
         caption:
           "Don’t have a design system? You’ll get endless rounds of QA and a mountain of documentation work, creating useless overhead that slows down business cycles and annoys all the team members.",
       },
@@ -462,8 +460,6 @@ export const caseStudies: Record<string, CaseStudy> = {
       {
         kind: "imageWide",
         image: xai4,
-        bleed: true,
-        bleedFactor: 1.0,
         caption:
           "Significant resources were invested into making sure users could do anything a CLI user could do, without having to type a command, or look at an actual command line.",
       },
