@@ -232,7 +232,10 @@ function BlockRenderer({
                           alt=""
                           width={24}
                           height={24}
-                          className="h-6 w-6 shrink-0"
+                          className={cn(
+                            "h-6 w-6 shrink-0",
+                            item.iconRounded && "rounded-[6px]",
+                          )}
                         />
                         <div className="flex flex-col gap-1">
                           <p className="font-display text-[16px] font-medium leading-6 text-ink">
