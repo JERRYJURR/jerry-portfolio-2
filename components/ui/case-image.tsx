@@ -13,8 +13,14 @@ const IMAGE_SHADOW =
 
 /**
  * Case study page image block. Mirrors the home-page thumbnail structure:
- * mesh gradient background, 64px inset top/sides, image bleeds off the bottom.
- * When no src is provided, renders a gradient placeholder at the given aspect ratio.
+ * mesh gradient background, inset top/sides, image bleeds off the bottom.
+ *
+ * Two modes:
+ *   - default: container grows to wrap the image with `padding` on all sides.
+ *   - bleed:   container is fixed to `aspect` with no bottom padding, so the
+ *              image overflows and gets clipped (matches the home thumbnails).
+ *
+ * When no src is provided, renders a gradient placeholder at the given aspect.
  */
 export function CaseImage({
   src,
@@ -24,6 +30,7 @@ export function CaseImage({
   padding = 64,
   hoverScale = false,
   preload = false,
+  bleed = false,
   sizes = "(max-width: 1024px) 100vw, 1024px",
 }: {
   src?: StaticImageData;
@@ -33,10 +40,20 @@ export function CaseImage({
   padding?: number;
   hoverScale?: boolean;
   preload?: boolean;
+  bleed?: boolean;
   sizes?: string;
 }) {
   const colors = palette?.colors ?? FALLBACK_COLORS;
   const [offsetX = 0, offsetY = 0] = palette?.offset ?? [];
+
+  const containerSizing = src
+    ? bleed
+      ? {
+          aspectRatio: aspect,
+          padding: `${padding}px ${padding}px 0`,
+        }
+      : { padding: `${padding}px` }
+    : { aspectRatio: aspect };
 
   return (
     <div
@@ -45,9 +62,7 @@ export function CaseImage({
         borderRadius: 24,
         overflow: "clip",
         transform: "translateZ(0)",
-        ...(src
-          ? { padding: `${padding}px` }
-          : { aspectRatio: aspect }),
+        ...containerSizing,
       }}
     >
       {/* Mesh gradient background */}
