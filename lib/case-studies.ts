@@ -2,9 +2,28 @@ import type { StaticImageData } from "next/image";
 import type { MediaPalette } from "@/components/ui/media-frame";
 
 import raijinThumb from "@/public/raijin-thumb.png";
+import raijin2 from "@/public/raijin-2.png";
+import raijin3a from "@/public/raijin-3-1.png";
+import raijin3b from "@/public/raijin-3-2.png";
+import raijin4 from "@/public/raijin-4.png";
+import raijin5 from "@/public/raijin-5.png";
+
 import partnersThumb from "@/public/partners-thumb.png";
+import partners2 from "@/public/partners-2.png";
+import partners52 from "@/public/partners-5-2.png";
+import partners53 from "@/public/partners-5-3.png";
+import partners54 from "@/public/partners-5-4.png";
+
 import exPopulusThumb from "@/public/ex-populus-thumb.png";
+import exPopulus2 from "@/public/ex-populus-2.png";
+import exPopulus3 from "@/public/ex-populus-3.png";
+import exPopulus4 from "@/public/ex-populus-4.png";
+import exPopulus5 from "@/public/ex-populus-5.png";
+
 import xaiThumb from "@/public/xai-thumb.png";
+import xai2 from "@/public/xai-2.png";
+import xai3 from "@/public/xai-3.png";
+import xai4 from "@/public/xai-4.png";
 
 /** A paragraph with an optional bolded lede sentence ("sub"). */
 export type SectionParagraph =
@@ -59,7 +78,7 @@ export const caseStudies: Record<string, CaseStudy> = {
       "To maximize their odds, users should be doing every task across every campaign. They weren’t. Why?",
     ],
     blocks: [
-      { kind: "imagePair" },
+      { kind: "imageWide", image: raijin2 },
       {
         kind: "section",
         heading: "Exploration",
@@ -68,7 +87,7 @@ export const caseStudies: Record<string, CaseStudy> = {
           "This aligned with the business too. Higher per-campaign engagement made the platform more attractive to potential partners, who weighed audience size heavily when evaluating us.",
         ],
       },
-      { kind: "imageWide" },
+      { kind: "imagePair", images: [raijin3a, raijin3b] },
       {
         kind: "section",
         heading: "Iteration",
@@ -77,7 +96,7 @@ export const caseStudies: Record<string, CaseStudy> = {
           "The feedback loop shrank from days to hours.",
         ],
       },
-      { kind: "imagePair" },
+      { kind: "imageWide", image: raijin4 },
       {
         kind: "section",
         heading: "Solution",
@@ -87,7 +106,7 @@ export const caseStudies: Record<string, CaseStudy> = {
           "The fundamental shift: a fragmented list of chores became a single game of progression.",
         ],
       },
-      { kind: "imageWide" },
+      { kind: "imageWide", image: raijin5 },
     ],
     results: {
       paragraphs: [
@@ -128,7 +147,7 @@ export const caseStudies: Record<string, CaseStudy> = {
       "Three parties were involved: BD (who owned the partner relationship), our internal design team, and partner-side designers we’d never met. None of them had a shared way to talk about what “correct” meant.",
     ],
     blocks: [
-      { kind: "imagePair" },
+      { kind: "imageWide", image: partners2 },
       {
         kind: "section",
         heading: "What was broken?",
@@ -147,7 +166,7 @@ export const caseStudies: Record<string, CaseStudy> = {
           },
         ],
       },
-      { kind: "imageWide" },
+      { kind: "imageWide", image: partners53 },
       {
         kind: "section",
         heading: "The fix wasn’t more design work",
@@ -156,7 +175,7 @@ export const caseStudies: Record<string, CaseStudy> = {
           "BD spoke in business terms. Partner designers worked from visual instinct. Our internal team worked from platform constraints. Every handoff was a translation, and you don’t fix translation problems by adding translators.",
         ],
       },
-      { kind: "imageWide" },
+      { kind: "imageWide", image: partners52 },
       {
         kind: "section",
         heading: "A layered handoff system",
@@ -179,7 +198,7 @@ export const caseStudies: Record<string, CaseStudy> = {
           },
         ],
       },
-      { kind: "imageWide" },
+      { kind: "imageWide", image: partners54 },
     ],
     results: {
       paragraphs: [
@@ -214,7 +233,7 @@ export const caseStudies: Record<string, CaseStudy> = {
       "Ex Populus was building a card-based trading game and needed a web UI. When I joined the team, the project was carrying significant design debt that was slowing every dev and QA cycle.",
     ],
     blocks: [
-      { kind: "imagePair" },
+      { kind: "imageWide", image: exPopulus2 },
       {
         kind: "section",
         heading: "Design debt",
@@ -225,7 +244,7 @@ export const caseStudies: Record<string, CaseStudy> = {
           "I argued against it. For our team, our stack, our workflow, we just didn’t need it.",
         ],
       },
-      { kind: "imageWide" },
+      { kind: "imageWide", image: exPopulus3 },
       {
         kind: "section",
         heading: "Why shadcn was enough",
@@ -244,7 +263,7 @@ export const caseStudies: Record<string, CaseStudy> = {
           ],
         },
       },
-      { kind: "imagePair" },
+      { kind: "imageWide", image: exPopulus4 },
       {
         kind: "section",
         heading: "Implementation",
@@ -254,7 +273,7 @@ export const caseStudies: Record<string, CaseStudy> = {
           "Within a single day, designers can be shipping branded hi-fi screens with all tokens and specs in a format devs can build directly from.",
         ],
       },
-      { kind: "imageWide" },
+      { kind: "imageWide", image: exPopulus5 },
     ],
     results: {
       paragraphs: [
@@ -292,7 +311,7 @@ export const caseStudies: Record<string, CaseStudy> = {
       "Products like this didn’t ship as consumer apps. They shipped as CLI tools, configured by hand, run from a terminal. That was the category convention when we started.",
     ],
     blocks: [
-      { kind: "imagePair" },
+      { kind: "imageWide", image: xai2 },
       {
         kind: "section",
         heading: "Approach",
@@ -302,7 +321,7 @@ export const caseStudies: Record<string, CaseStudy> = {
           "The cost of building the UI was real but bounded. The cost of shipping CLI-only was every non-developer buyer we’d lose, which turned out to be most of them.",
         ],
       },
-      { kind: "imageWide" },
+      { kind: "imageWide", image: xai3 },
       {
         kind: "section",
         heading: "An all-in-one desktop app",
@@ -311,7 +330,7 @@ export const caseStudies: Record<string, CaseStudy> = {
           "The design bet was that this audience didn’t want to learn the infrastructure. They wanted to participate in it.",
         ],
       },
-      { kind: "imageWide" },
+      { kind: "imageWide", image: xai4 },
     ],
     results: {
       paragraphs: [
