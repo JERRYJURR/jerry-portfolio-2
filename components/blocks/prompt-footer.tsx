@@ -3,6 +3,8 @@
 import Image from "next/image";
 import { Check, Copy } from "lucide-react";
 import { useState } from "react";
+import paperIcon from "@/public/paper.png";
+import claudeCodeIcon from "@/public/claude-code.png";
 import { ArrowRight, Button } from "@/components/ui/button";
 import { StripeBand } from "@/components/ui/stripe-band";
 import { LINKS } from "@/lib/links";
@@ -96,11 +98,11 @@ export function PromptFooter() {
             <div className="flex flex-col gap-2 md:flex-row md:gap-8">
               <div className="flex items-center gap-2">
                 <Image
-                  src="/paper.png"
+                  src={paperIcon}
                   alt=""
                   width={16}
                   height={16}
-                  className="h-4 w-4 rounded-[3px]"
+                  className="h-4 w-4 rounded-[4px]"
                 />
                 <span className="font-mono text-[11px] leading-4 tracking-[0.1em] uppercase text-ink-subtle translate-y-[2px]">
                   Designed with Paper
@@ -108,11 +110,11 @@ export function PromptFooter() {
               </div>
               <div className="flex items-center gap-2">
                 <Image
-                  src="/claude-code.png"
+                  src={claudeCodeIcon}
                   alt=""
                   width={16}
                   height={16}
-                  className="h-4 w-4 rounded-[3px]"
+                  className="h-4 w-4 rounded-[4px]"
                 />
                 <span className="font-mono text-[11px] leading-4 tracking-[0.1em] uppercase text-ink-subtle translate-y-[2px]">
                   Built with Claude Code
