@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { StripeBand } from "@/components/ui/stripe-band";
 
 export function Footer() {
@@ -15,9 +16,11 @@ export function Footer() {
               </div>
               <div className="flex flex-col gap-2 md:flex-row md:gap-8">
                 <div className="flex items-center gap-2">
-                  <img
+                  <Image
                     src="/paper.png"
                     alt=""
+                    width={16}
+                    height={16}
                     className="h-4 w-4 rounded shadow-[0_2px_3px_#00000033]"
                   />
                   <span className="font-mono text-[11px] leading-4 tracking-[0.1em] uppercase text-ink-subtle">
@@ -25,9 +28,11 @@ export function Footer() {
                   </span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <img
+                  <Image
                     src="/claude-code.png"
                     alt=""
+                    width={16}
+                    height={16}
                     className="h-4 w-4 rounded shadow-[0_2px_3px_#00000033]"
                   />
                   <span className="font-mono text-[11px] leading-4 tracking-[0.1em] uppercase text-ink-subtle">

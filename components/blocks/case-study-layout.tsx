@@ -43,6 +43,7 @@ export function CaseStudyLayout({ data }: { data: CaseStudy }) {
               alt={data.headline}
               palette={data.palette}
               aspect="32/15"
+              preload
             />
           </Reveal>
         </Container>
@@ -145,8 +146,8 @@ function BlockRenderer({
       <section className="px-6 md:px-12 py-12">
         <Container>
           <div className="grid gap-6 md:grid-cols-2">
-            <CaseImage src={a} palette={palette} aspect="4/3" />
-            <CaseImage src={b} palette={palette} aspect="4/3" />
+            <CaseImage src={a} palette={palette} aspect="4/3" sizes="(max-width: 768px) 100vw, 500px" />
+            <CaseImage src={b} palette={palette} aspect="4/3" sizes="(max-width: 768px) 100vw, 500px" />
           </div>
         </Container>
       </section>

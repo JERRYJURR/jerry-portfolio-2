@@ -1,5 +1,6 @@
 "use client";
 
+import Image, { type StaticImageData } from "next/image";
 import { MeshGradient } from "@paper-design/shaders-react";
 import type { MediaPalette } from "@/components/ui/media-frame";
 
@@ -22,13 +23,17 @@ export function CaseImage({
   aspect = "32/15",
   padding = 64,
   hoverScale = false,
+  preload = false,
+  sizes = "(max-width: 1024px) 100vw, 1024px",
 }: {
-  src?: string;
+  src?: StaticImageData;
   alt?: string;
   palette?: MediaPalette;
   aspect?: string;
   padding?: number;
   hoverScale?: boolean;
+  preload?: boolean;
+  sizes?: string;
 }) {
   const colors = palette?.colors ?? FALLBACK_COLORS;
   const [offsetX = 0, offsetY = 0] = palette?.offset ?? [];
@@ -77,10 +82,13 @@ export function CaseImage({
 
       {src && (
         <div className="relative flex items-start justify-center">
-          <img
+          <Image
             src={src}
             alt={alt}
-            className={"block w-full object-cover object-top" + (hoverScale ? " transition-transform duration-[var(--duration-medium)] ease-[var(--ease-standard)] group-hover:scale-[1.015]" : "")}
+            sizes={sizes}
+            preload={preload}
+            placeholder="blur"
+            className={"block w-full h-auto" + (hoverScale ? " transition-transform duration-[var(--duration-medium)] ease-[var(--ease-standard)] group-hover:scale-[1.015]" : "")}
             style={{ filter: IMAGE_SHADOW }}
           />
         </div>

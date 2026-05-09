@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { StaticImageData } from "next/image";
 import { ArrowRight } from "@/components/ui/button";
 import { CaseImage } from "@/components/ui/case-image";
 import type { MediaPalette } from "@/components/ui/media-frame";
@@ -11,7 +12,7 @@ export function NextCaseCard({
 }: {
   href: string;
   headline: string;
-  imageSrc?: string;
+  imageSrc?: StaticImageData;
   palette?: MediaPalette;
 }) {
   return (
@@ -63,7 +64,15 @@ export function NextCaseCard({
           </div>
         </div>
         <div className="relative flex-1">
-          <CaseImage src={imageSrc} alt={headline} palette={palette} aspect="4/3" padding={32} hoverScale />
+          <CaseImage
+            src={imageSrc}
+            alt={headline}
+            palette={palette}
+            aspect="4/3"
+            padding={32}
+            hoverScale
+            sizes="(max-width: 768px) 100vw, 512px"
+          />
         </div>
       </div>
     </Link>

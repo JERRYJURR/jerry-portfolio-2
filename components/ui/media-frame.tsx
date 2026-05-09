@@ -1,5 +1,6 @@
 "use client";
 
+import Image, { type StaticImageData } from "next/image";
 import { MeshGradient } from "@paper-design/shaders-react";
 import { cn } from "@/lib/cn";
 import { useState } from "react";
@@ -34,8 +35,9 @@ export function MediaFrame({
   className,
   innerClassName,
   children,
+  sizes = "(max-width: 1024px) 100vw, 1024px",
 }: {
-  src?: string;
+  src?: StaticImageData;
   alt?: string;
   aspect?: string;
   /** 8 or 16. Inner radius computed from outer (24) − padding. */
@@ -44,6 +46,7 @@ export function MediaFrame({
   className?: string;
   innerClassName?: string;
   children?: React.ReactNode;
+  sizes?: string;
 }) {
   const [hovered, setHovered] = useState(false);
   const innerRadius = 24 - padding;
@@ -101,15 +104,22 @@ export function MediaFrame({
       />
 
       {src ? (
-        <img
-          src={src}
-          alt={alt ?? ""}
+        <div
           className={cn(
-            "relative z-10 block h-full w-full object-cover",
+            "relative z-10 h-full w-full overflow-clip",
             innerClassName,
           )}
           style={{ borderRadius: `${innerRadius}px` }}
-        />
+        >
+          <Image
+            src={src}
+            alt={alt ?? ""}
+            fill
+            sizes={sizes}
+            placeholder="blur"
+            className="object-cover"
+          />
+        </div>
       ) : children ? (
         <div
           className={cn(

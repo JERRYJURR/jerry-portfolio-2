@@ -1,4 +1,10 @@
+import type { StaticImageData } from "next/image";
 import type { MediaPalette } from "@/components/ui/media-frame";
+
+import raijinThumb from "@/public/raijin-thumb.png";
+import partnersThumb from "@/public/partners-thumb.png";
+import exPopulusThumb from "@/public/ex-populus-thumb.png";
+import xaiThumb from "@/public/xai-thumb.png";
 
 /** A paragraph with an optional bolded lede sentence ("sub"). */
 export type SectionParagraph =
@@ -8,8 +14,8 @@ export type SectionParagraph =
 export type Aside = { heading: string; paragraphs: string[] };
 
 export type Block =
-  | { kind: "imagePair"; images?: [string, string] }
-  | { kind: "imageWide"; image?: string }
+  | { kind: "imagePair"; images?: [StaticImageData, StaticImageData] }
+  | { kind: "imageWide"; image?: StaticImageData }
   | {
       kind: "section";
       heading: string;
@@ -24,7 +30,7 @@ export type CaseStudy = {
   role: string;
   yearRange: string;
   headline: string;
-  heroImage?: string;
+  heroImage?: StaticImageData;
   overview: string[];
   blocks: Block[];
   results: {
@@ -34,7 +40,7 @@ export type CaseStudy = {
   next: {
     slug: string;
     headline: string;
-    imageSrc?: string;
+    imageSrc?: StaticImageData;
   };
   palette?: MediaPalette;
 };
@@ -47,7 +53,7 @@ export const caseStudies: Record<string, CaseStudy> = {
     role: "Lead Designer",
     yearRange: "Q2-Q3 2025",
     headline: "How rapid AI prototyping unlocked a new flow for 180K users.",
-    heroImage: "/raijin-thumb.png",
+    heroImage: raijinThumb,
     overview: [
       "Raijin is a rewards platform where users earn prize entries by completing tasks in partner-run campaigns. The more tasks you complete, the better your odds in each prize pool.",
       "To maximize their odds, users should be doing every task across every campaign. They weren’t. Why?",
@@ -99,7 +105,7 @@ export const caseStudies: Record<string, CaseStudy> = {
       slug: "partners",
       headline:
         "How to scale and control design quality across 40+ external partners.",
-      imageSrc: "/partners-thumb.png",
+      imageSrc: partnersThumb,
     },
     palette: {
       colors: ["#E4E4E7", "#A5B4FC", "#F9A8D4", "#D8B4FE"],
@@ -115,7 +121,7 @@ export const caseStudies: Record<string, CaseStudy> = {
     yearRange: "Q1 2025",
     headline:
       "How to scale and control design quality across 40+ external partners.",
-    heroImage: "/partners-thumb.png",
+    heroImage: partnersThumb,
     overview: [
       "Raijin is a rewards platform where users earn prize entries by completing tasks in partner-run campaigns. Assets for each campaign could either be produced by internal designers or external partner-side designers.",
       "Raijin’s partner pipeline grew from a handful of campaigns to 40+ external partners shipping concurrently. Every campaign needed custom asset work, and that work was breaking down at handoff.",
@@ -188,7 +194,7 @@ export const caseStudies: Record<string, CaseStudy> = {
     next: {
       slug: "ex-populus",
       headline: "Why we chose not to build a design system from scratch.",
-      imageSrc: "/ex-populus-thumb.png",
+      imageSrc: exPopulusThumb,
     },
     palette: {
       colors: ["#E4E4E7", "#7DD3FC", "#6EE7B7", "#67E8F9"],
@@ -203,7 +209,7 @@ export const caseStudies: Record<string, CaseStudy> = {
     role: "Lead Designer",
     yearRange: "Q3 2024",
     headline: "Why we chose not to build a design system from scratch.",
-    heroImage: "/ex-populus-thumb.png",
+    heroImage: exPopulusThumb,
     overview: [
       "Ex Populus was building a card-based trading game and needed a web UI. When I joined the team, the project was carrying significant design debt that was slowing every dev and QA cycle.",
     ],
@@ -264,7 +270,7 @@ export const caseStudies: Record<string, CaseStudy> = {
     next: {
       slug: "xai",
       headline: "Why we built a consumer-facing UI for a product that didn’t need one.",
-      imageSrc: "/xai-thumb.png",
+      imageSrc: xaiThumb,
     },
     palette: {
       colors: ["#E4E4E7", "#FDBA74", "#F9A8D4", "#FCD34D"],
@@ -280,7 +286,7 @@ export const caseStudies: Record<string, CaseStudy> = {
     yearRange: "Q4 2023",
     headline:
       "Why we built a consumer-facing UI for a product that didn’t need one, and made $40M.",
-    heroImage: "/xai-thumb.png",
+    heroImage: xaiThumb,
     overview: [
       "Xai Sentry Nodes are apps that users can run on their computer. Once they buy a key, they’ll be able to receive rewards for running it.",
       "Products like this didn’t ship as consumer apps. They shipped as CLI tools, configured by hand, run from a terminal. That was the category convention when we started.",
@@ -321,7 +327,7 @@ export const caseStudies: Record<string, CaseStudy> = {
       slug: "raijin",
       headline:
         "How rapid AI prototyping unlocked a new flow for 180K users.",
-      imageSrc: "/raijin-thumb.png",
+      imageSrc: raijinThumb,
     },
     palette: {
       colors: ["#E4E4E7", "#C4B5FD", "#D8B4FE", "#A5B4FC"],

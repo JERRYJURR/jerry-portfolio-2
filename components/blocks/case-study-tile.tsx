@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image, { type StaticImageData } from "next/image";
 import { MeshGradient } from "@paper-design/shaders-react";
 import { ArrowRight } from "@/components/ui/button";
 import { Eyebrow } from "@/components/ui/eyebrow";
@@ -32,7 +33,7 @@ function CaseThumbnail({
   palette,
   hovered,
 }: {
-  src: string;
+  src: StaticImageData;
   alt: string;
   palette?: CaseStudyPalette;
   hovered: boolean;
@@ -83,10 +84,12 @@ function CaseThumbnail({
 
       {/* Screenshot — fills padding area, bleeds off the bottom. */}
       <div className="relative flex items-start justify-center">
-        <img
+        <Image
           src={src}
           alt={alt}
-          className="block w-full object-cover object-top
+          sizes="(max-width: 768px) 100vw, 50vw"
+          placeholder="blur"
+          className="block w-full h-auto
             transition-transform duration-[var(--duration-medium)] ease-[var(--ease-standard)]
             group-hover:scale-[1.015]"
           style={{ filter: IMAGE_SHADOW }}
@@ -112,7 +115,7 @@ export function CaseStudyTile({
   project: string;
   headline: string;
   stats: Stat[];
-  imageSrc?: string;
+  imageSrc?: StaticImageData;
   palette?: CaseStudyPalette;
 }) {
   const [hovered, setHovered] = useState(false);
