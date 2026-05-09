@@ -25,7 +25,7 @@ export function Footer() {
                     height={16}
                     className="h-4 w-4 rounded-[4px]"
                   />
-                  <span className="font-mono text-[11px] leading-4 tracking-[0.1em] uppercase text-ink-subtle translate-y-[2px]">
+                  <span className="font-mono text-[11px] leading-4 tracking-[0.1em] uppercase text-ink-subtle">
                     Designed with Paper
                   </span>
                 </div>
@@ -37,7 +37,7 @@ export function Footer() {
                     height={16}
                     className="h-4 w-4 rounded-[4px]"
                   />
-                  <span className="font-mono text-[11px] leading-4 tracking-[0.1em] uppercase text-ink-subtle translate-y-[2px]">
+                  <span className="font-mono text-[11px] leading-4 tracking-[0.1em] uppercase text-ink-subtle">
                     Built with Claude Code
                   </span>
                 </div>
