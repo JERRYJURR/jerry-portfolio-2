@@ -155,7 +155,7 @@ export default function Home() {
       </Reveal>
 
       {/* Case study grid */}
-      <section className="pt-24 pb-32">
+      <section className="pt-24 pb-48">
         <Container>
           <div className="grid gap-x-6 gap-y-20 md:grid-cols-2">
             {cases.map((c, i) => (
