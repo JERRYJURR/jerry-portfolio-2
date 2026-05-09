@@ -41,9 +41,9 @@ export function BrandLink() {
         size="sm"
         src="/jerry.webp"
         alt="Jerry Kou"
-        className="relative"
+        className="relative max-md:!h-8 max-md:!w-8"
       />
-      <span className="relative font-display text-[20px] font-medium tracking-[-0.025em] leading-none text-ink">
+      <span className="relative font-display text-[16px] md:text-[20px] font-medium tracking-[-0.025em] leading-none text-ink">
         Jerry Kou
       </span>
     </Link>
