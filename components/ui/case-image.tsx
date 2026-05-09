@@ -70,6 +70,11 @@ export function CaseImage({
   // Inner sizing — translate the spec formulas into aspect-ratio so the height
   // scales with viewport width while still satisfying the formula at the
   // reference (1024px) width.
+  //
+  // `minHeight: 0` is REQUIRED whenever we set `aspect-ratio`. Without it, the
+  // box's default `min-height: auto` lets the image's intrinsic height push
+  // the inner div larger than the aspect-ratio's computed height, which kills
+  // the bleed entirely (the container just hugs the image bottom).
   let innerStyle: React.CSSProperties | undefined;
   if (src) {
     if (bleedHeight !== undefined) {
@@ -83,7 +88,10 @@ export function CaseImage({
         ? (imageHeightMax - 2 * padding) * bleedFactor
         : imageHeightMax;
       if (visible > 0) {
-        innerStyle = { aspectRatio: `${innerWidthMax} / ${visible}` };
+        innerStyle = {
+          aspectRatio: `${innerWidthMax} / ${visible}`,
+          minHeight: 0,
+        };
       }
     }
   }
@@ -144,7 +152,7 @@ export function CaseImage({
             preload={preload}
             placeholder="blur"
             className={cn(
-              "block w-full h-auto",
+              "w-full h-auto align-top",
               hoverScale &&
                 "transition-transform duration-[var(--duration-medium)] ease-[var(--ease-standard)] group-hover:scale-[1.015]",
             )}
