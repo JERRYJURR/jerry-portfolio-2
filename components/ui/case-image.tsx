@@ -141,10 +141,7 @@ export function CaseImage({
       />
 
       {src && (
-        <div
-          className="relative flex items-start justify-center"
-          style={innerStyle}
-        >
+        <div className="relative" style={innerStyle}>
           <Image
             src={src}
             alt={alt}
