@@ -5,15 +5,20 @@ import { MeshGradient } from "@paper-design/shaders-react";
 import type { MediaPalette } from "@/components/ui/media-frame";
 
 const FALLBACK_COLORS = ["#F4F4F5", "#C7D2FE", "#FBCFE8", "#A5F3FC"];
-// In bleed mode, shrink the container's visible height vs the supplied
-// aspect so the image clearly overflows and gets clipped — without this
-// the image fits exactly and you can still see its rounded bottom corners.
-const BLEED_HEIGHT_FACTOR = 0.85;
+// Fraction of the image's natural rendered height to clip off the bottom in
+// bleed mode. The visible cutoff lands this far above where the image would
+// naturally end, so its rounded bottom corners stay hidden behind the frame.
+const BLEED_CROP = 0.15;
+// Reference container width used to translate (image dimensions + padding)
+// into a fixed aspect ratio. At other widths the ratio drifts slightly, but
+// the bleed effect still reads correctly.
+const BLEED_REF_WIDTH = 1024;
 
-function tightenAspectForBleed(aspect: string) {
-  const [w, h] = aspect.split("/").map(Number);
-  if (!w || !h) return aspect;
-  return `${w}/${h * BLEED_HEIGHT_FACTOR}`;
+function bleedAspect(src: StaticImageData, padding: number) {
+  const imageWidth = BLEED_REF_WIDTH - 2 * padding;
+  const imageHeight = imageWidth * (src.height / src.width);
+  const containerHeight = padding + imageHeight * (1 - BLEED_CROP);
+  return `${BLEED_REF_WIDTH}/${containerHeight}`;
 }
 const GRADIENT_MASK = "linear-gradient(to bottom, black 0%, rgba(0,0,0,0.4) 100%)";
 const GRADIENT_FALLBACK =
@@ -59,7 +64,7 @@ export function CaseImage({
   const containerSizing = src
     ? bleed
       ? {
-          aspectRatio: tightenAspectForBleed(aspect),
+          aspectRatio: bleedAspect(src, padding),
           padding: `${padding}px ${padding}px 0`,
         }
       : { padding: `${padding}px` }
