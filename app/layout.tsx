@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Asta_Sans, Chivo_Mono } from "next/font/google";
+import { BackToTop } from "@/components/ui/back-to-top";
 import "./globals.css";
 
 const display = Asta_Sans({
@@ -41,6 +42,7 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col bg-bg text-ink">
         {children}
+        <BackToTop />
       </body>
     </html>
   );
