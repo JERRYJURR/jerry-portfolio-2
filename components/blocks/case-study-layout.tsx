@@ -151,8 +151,8 @@ function BlockRenderer({
         <Container>
           <div className="flex flex-col gap-6">
             <div className="grid gap-6 md:grid-cols-2">
-              <CaseImage src={a} palette={palette} aspect={aspect} bleed={block.bleed} sizes="(max-width: 768px) 100vw, 500px" />
-              <CaseImage src={b} palette={palette} aspect={aspect} bleed={block.bleed} sizes="(max-width: 768px) 100vw, 500px" />
+              <CaseImage src={a} palette={palette} aspect={aspect} bleed={block.bleed} bleedFactor={block.bleedFactor} sizes="(max-width: 768px) 100vw, 500px" />
+              <CaseImage src={b} palette={palette} aspect={aspect} bleed={block.bleed} bleedFactor={block.bleedFactor} sizes="(max-width: 768px) 100vw, 500px" />
             </div>
             {block.caption && <Caption>{block.caption}</Caption>}
           </div>
@@ -167,7 +167,7 @@ function BlockRenderer({
       <section className="px-6 md:px-12 py-12">
         <Container>
           <div className="flex flex-col gap-6">
-            <CaseImage src={block.image} palette={palette} aspect={aspect} bleed={block.bleed} />
+            <CaseImage src={block.image} palette={palette} aspect={aspect} bleed={block.bleed} bleedFactor={block.bleedFactor} />
             {block.caption && <Caption>{block.caption}</Caption>}
           </div>
         </Container>

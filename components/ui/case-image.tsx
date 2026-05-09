@@ -11,14 +11,14 @@ const BLEED_REF_WIDTH = 1024;
 
 /**
  * Computes the inner wrapper's pixel height for a bleed image:
- *   (image_rendered_height_at_max - 2*padding) * 0.85
+ *   (image_rendered_height_at_max - 2*padding) * factor
  * This sits the image inside a shorter box so its bottom overflows past the
  * outer frame's `overflow: clip` boundary. Mirrors the home thumbnails.
  */
-function defaultBleedHeight(src: StaticImageData, padding: number) {
+function defaultBleedHeight(src: StaticImageData, padding: number, factor: number) {
   const imageWidth = BLEED_REF_WIDTH - 2 * padding;
   const imageHeight = imageWidth * (src.height / src.width);
-  return (imageHeight - 2 * padding) * 0.85;
+  return (imageHeight - 2 * padding) * factor;
 }
 const GRADIENT_MASK = "linear-gradient(to bottom, black 0%, rgba(0,0,0,0.4) 100%)";
 const GRADIENT_FALLBACK =
@@ -46,6 +46,7 @@ export function CaseImage({
   hoverScale = false,
   preload = false,
   bleed = false,
+  bleedFactor = 0.85,
   bleedHeight,
   sizes = "(max-width: 1024px) 100vw, 1024px",
 }: {
@@ -57,6 +58,8 @@ export function CaseImage({
   hoverScale?: boolean;
   preload?: boolean;
   bleed?: boolean;
+  /** How much of the image's natural height to keep visible in bleed mode (0–1). */
+  bleedFactor?: number;
   /** Override the bleed wrapper height (px). Defaults to a per-image computed value. */
   bleedHeight?: number;
   sizes?: string;
@@ -71,7 +74,9 @@ export function CaseImage({
     : { aspectRatio: aspect };
 
   const innerHeight =
-    bleed && src ? (bleedHeight ?? defaultBleedHeight(src, padding)) : undefined;
+    bleed && src
+      ? (bleedHeight ?? defaultBleedHeight(src, padding, bleedFactor))
+      : undefined;
 
   return (
     <div
