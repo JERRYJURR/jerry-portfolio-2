@@ -18,6 +18,9 @@ import exPopulus2 from "@/public/ex-populus-2.png";
 import exPopulus3 from "@/public/ex-populus-3.png";
 import exPopulus4 from "@/public/ex-populus-4.png";
 import exPopulus5 from "@/public/ex-populus-5.png";
+import shadcndesignIcon from "@/public/shadcndesign.png";
+import figmaIcon from "@/public/figma.png";
+import claudeIcon from "@/public/claude.png";
 
 import xaiThumb from "@/public/xai-thumb.png";
 import xai2 from "@/public/xai-2.png";
@@ -29,7 +32,17 @@ export type SectionParagraph =
   | string
   | { sub: string; body: string };
 
-export type Aside = { heading: string; paragraphs: string[] };
+export type AsideItem = {
+  icon: StaticImageData;
+  heading: string;
+  body: string;
+};
+
+export type Aside = {
+  heading: string;
+  paragraphs?: string[];
+  items?: AsideItem[];
+};
 
 export type Block =
   | { kind: "imagePair"; images?: [StaticImageData, StaticImageData]; caption?: string }
@@ -292,9 +305,10 @@ export const caseStudies: Record<string, CaseStudy> = {
         aside: {
           heading: "The case for Noto over Inter",
           paragraphs: [
-            "Noto supports 7+ more languages than Inter — over 1,000 scripts vs. ~150.",
-            "Noto is also actively maintained by Google, and is consistent across all scripts, so layouts don’t break when localized.",
-            "The only reason to pick Inter over Noto is if you specifically prefer its visual character — and even then, the trade-off is rarely worth it.",
+            "Many designers instinctively reach for Inter when in need of a good-looking, functional default. But if you want a functional, readable default, you should pick Noto.",
+            "Grotesques such as Helvetica or Inter look good, but the monotony and uniformity of glyph shapes means it’s less readable than humanist fonts such as Noto.",
+            "Of course Inter’s main credit is its engineering, with its sophisticated hinting making it look good at small UI sizes. But Noto’s engineering is just as sophisticated, if not more. On top of that, it supports 7× more languages, and 162+ writing systems.",
+            "If you’re picking Inter over Noto, it’s because of vibes and preference, not for any readability or functionality reasons.",
           ],
         },
       },
@@ -312,6 +326,26 @@ export const caseStudies: Record<string, CaseStudy> = {
           "My recommendation: start from a paid Figma template that already has Tailwind tokens wired up. It cuts hours of tedious setup and lets the team focus on the actual design work.",
           "Within a single day, designers can be shipping branded hi-fi screens with all tokens and specs in a format devs can build directly from.",
         ],
+        aside: {
+          heading: "Design stack",
+          items: [
+            {
+              icon: shadcndesignIcon,
+              heading: "shadcndesign",
+              body: "Up-to-date Figma kit with customizable tokens and built in Tailwind variables.",
+            },
+            {
+              icon: figmaIcon,
+              heading: "Figma",
+              body: "Everyone already knows how to use it and there’s so many useful integrations and plugins.",
+            },
+            {
+              icon: claudeIcon,
+              heading: "Claude Code",
+              body: "Connect it to the Figma MCP to generate frontend code.",
+            },
+          ],
+        },
       },
       {
         kind: "imageWide",

@@ -1,3 +1,5 @@
+import Image from "next/image";
+import { cn } from "@/lib/cn";
 import { Caption } from "@/components/ui/caption";
 import { Container } from "@/components/ui/container";
 import { CaseImage } from "@/components/ui/case-image";
@@ -194,21 +196,52 @@ function BlockRenderer({
   );
 
   if (block.aside) {
+    const aside = block.aside;
     return (
       <section className="px-6 md:px-12 py-12">
         <Container>
           <div className="flex flex-col gap-12 md:flex-row md:gap-6">
             <div className="flex flex-1 flex-col gap-8">{sectionBody}</div>
             <div className="flex flex-1 justify-end self-start">
-              <div className="flex h-fit w-full flex-col gap-4 self-start rounded-2xl bg-bg p-6 outline outline-1 outline-rule-strong md:w-[75%]">
-                <h3 className="font-display text-[18px] font-medium leading-[1.4] text-ink">
-                  {block.aside.heading}
+              <div
+                className={cn(
+                  "flex h-fit w-full flex-col self-start rounded-2xl bg-bg p-6 outline outline-1 outline-rule-strong md:w-[75%]",
+                  aside.items ? "gap-6" : "gap-4",
+                )}
+              >
+                <h3 className="font-display text-[24px] font-normal tracking-[-0.05em] leading-[1.25] text-ink">
+                  {aside.heading}
                 </h3>
-                <div className="flex flex-col gap-3 text-[15px] leading-[1.55] text-ink-muted">
-                  {block.aside.paragraphs.map((p, i) => (
-                    <p key={i}>{p}</p>
-                  ))}
-                </div>
+                {aside.paragraphs && (
+                  <div className="flex flex-col gap-4 text-[16px] leading-6 text-ink-muted">
+                    {aside.paragraphs.map((p, i) => (
+                      <p key={i}>{p}</p>
+                    ))}
+                  </div>
+                )}
+                {aside.items && (
+                  <div className="flex flex-col gap-6">
+                    {aside.items.map((item, i) => (
+                      <div key={i} className="flex items-start gap-4">
+                        <Image
+                          src={item.icon}
+                          alt=""
+                          width={24}
+                          height={24}
+                          className="h-6 w-6 shrink-0"
+                        />
+                        <div className="flex flex-col gap-1">
+                          <p className="font-display text-[16px] font-medium leading-6 text-ink">
+                            {item.heading}
+                          </p>
+                          <p className="text-[16px] leading-6 text-ink-muted">
+                            {item.body}
+                          </p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
           </div>
