@@ -1,3 +1,4 @@
+import { Caption } from "@/components/ui/caption";
 import { Container } from "@/components/ui/container";
 import { CaseImage } from "@/components/ui/case-image";
 import { Reveal } from "@/components/ui/reveal";
@@ -145,9 +146,12 @@ function BlockRenderer({
     return (
       <section className="px-6 md:px-12 py-12">
         <Container>
-          <div className="grid gap-6 md:grid-cols-2">
-            <CaseImage src={a} palette={palette} aspect="4/3" sizes="(max-width: 768px) 100vw, 500px" />
-            <CaseImage src={b} palette={palette} aspect="4/3" sizes="(max-width: 768px) 100vw, 500px" />
+          <div className="flex flex-col gap-6">
+            <div className="grid gap-6 md:grid-cols-2">
+              <CaseImage src={a} palette={palette} aspect="4/3" sizes="(max-width: 768px) 100vw, 500px" />
+              <CaseImage src={b} palette={palette} aspect="4/3" sizes="(max-width: 768px) 100vw, 500px" />
+            </div>
+            {block.caption && <Caption>{block.caption}</Caption>}
           </div>
         </Container>
       </section>
@@ -158,7 +162,10 @@ function BlockRenderer({
     return (
       <section className="px-6 md:px-12 py-12">
         <Container>
-          <CaseImage src={block.image} palette={palette} aspect="32/15" />
+          <div className="flex flex-col gap-6">
+            <CaseImage src={block.image} palette={palette} aspect="32/15" />
+            {block.caption && <Caption>{block.caption}</Caption>}
+          </div>
         </Container>
       </section>
     );

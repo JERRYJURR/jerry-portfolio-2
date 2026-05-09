@@ -10,7 +10,6 @@ import raijin5 from "@/public/raijin-5.png";
 
 import partnersThumb from "@/public/partners-thumb.png";
 import partners2 from "@/public/partners-2.png";
-import partners52 from "@/public/partners-5-2.png";
 import partners53 from "@/public/partners-5-3.png";
 import partners54 from "@/public/partners-5-4.png";
 
@@ -33,8 +32,8 @@ export type SectionParagraph =
 export type Aside = { heading: string; paragraphs: string[] };
 
 export type Block =
-  | { kind: "imagePair"; images?: [StaticImageData, StaticImageData] }
-  | { kind: "imageWide"; image?: StaticImageData }
+  | { kind: "imagePair"; images?: [StaticImageData, StaticImageData]; caption?: string }
+  | { kind: "imageWide"; image?: StaticImageData; caption?: string }
   | {
       kind: "section";
       heading: string;
@@ -78,7 +77,12 @@ export const caseStudies: Record<string, CaseStudy> = {
       "To maximize their odds, users should be doing every task across every campaign. They weren’t. Why?",
     ],
     blocks: [
-      { kind: "imageWide", image: raijin2 },
+      {
+        kind: "imageWide",
+        image: raijin2,
+        caption:
+          "Pictured: six giveaway campaigns with wildly varying user participation rates. Ideally every giveaway should be as close to 100% as possible.",
+      },
       {
         kind: "section",
         heading: "Exploration",
@@ -87,7 +91,12 @@ export const caseStudies: Record<string, CaseStudy> = {
           "This aligned with the business too. Higher per-campaign engagement made the platform more attractive to potential partners, who weighed audience size heavily when evaluating us.",
         ],
       },
-      { kind: "imagePair", images: [raijin3a, raijin3b] },
+      {
+        kind: "imagePair",
+        images: [raijin3a, raijin3b],
+        caption:
+          "The old flow’s friction scaled with campaign count: every additional giveaway meant another round-trip through the homepage and dedicated giveaway pages. A new improved flow should batch all tasks into a single queue, making per-giveaway navigation obsolete.",
+      },
       {
         kind: "section",
         heading: "Iteration",
@@ -96,7 +105,12 @@ export const caseStudies: Record<string, CaseStudy> = {
           "The feedback loop shrank from days to hours.",
         ],
       },
-      { kind: "imageWide", image: raijin4 },
+      {
+        kind: "imageWide",
+        image: raijin4,
+        caption:
+          "Figma prototypes are extremely time-consuming to make. With well-structured prompts, you can iterate at the speed of pen and paper, making it ideal for fast-moving teams and flat, unstructured orgs.",
+      },
       {
         kind: "section",
         heading: "Solution",
@@ -106,7 +120,12 @@ export const caseStudies: Record<string, CaseStudy> = {
           "The fundamental shift: a fragmented list of chores became a single game of progression.",
         ],
       },
-      { kind: "imageWide", image: raijin5 },
+      {
+        kind: "imageWide",
+        image: raijin5,
+        caption:
+          "The new and improved flow. In addition to eliminating a source of unnecessary clicks and friction that scale linearly with the amount of campaigns, we also gamified the process of completing all the tasks on the website.",
+      },
     ],
     results: {
       paragraphs: [
@@ -147,7 +166,12 @@ export const caseStudies: Record<string, CaseStudy> = {
       "Three parties were involved: BD (who owned the partner relationship), our internal design team, and partner-side designers we’d never met. None of them had a shared way to talk about what “correct” meant.",
     ],
     blocks: [
-      { kind: "imageWide", image: partners2 },
+      {
+        kind: "imageWide",
+        image: partners2,
+        caption:
+          "Anonymized messages from our communication channels we used to coordinate campaigns. Before going live, we’d have many rounds of back-and-forths on file formats, resolutions, image quality, branding, cropping concerns, and sharing permissions.",
+      },
       {
         kind: "section",
         heading: "What was broken?",
@@ -166,26 +190,22 @@ export const caseStudies: Record<string, CaseStudy> = {
           },
         ],
       },
-      { kind: "imageWide", image: partners53 },
       {
-        kind: "section",
-        heading: "The fix wasn’t more design work",
-        paragraphs: [
-          "Hiring more designers wouldn’t have helped. Neither would a faster review process. The bottleneck wasn’t design capacity, it was that nobody had a shared language for what a correct asset looked like.",
-          "BD spoke in business terms. Partner designers worked from visual instinct. Our internal team worked from platform constraints. Every handoff was a translation, and you don’t fix translation problems by adding translators.",
-        ],
+        kind: "imageWide",
+        image: partners53,
+        caption:
+          "Example of what a campaign asset delivery cycle used to look like: five rounds of revision for four deliverable types in two file formats. Multiply that by 40+ partners.",
       },
-      { kind: "imageWide", image: partners52 },
       {
         kind: "section",
-        heading: "A layered handoff system",
+        heading: "The fix: a layered handoff system",
         paragraphs: [
           {
-            sub: "A single source of truth in Notion.",
+            sub: "A single source of truth in Notion",
             body: "One page, always current. It replaced the previous mess of specs scattered across emails and old briefs. BD could send the same link to every partner, every time, and trust that the information was authoritative.",
           },
           {
-            sub: "Specs with examples, not just specs.",
+            sub: "Specs with examples, not just specs",
             body: "Most partner teams weren’t designers, so specs without visuals assumed too much. Every spec came with a worked example: where logos belonged, where focal points should sit, what a correct aspect ratio looked like in practice.",
           },
           {
@@ -193,12 +213,17 @@ export const caseStudies: Record<string, CaseStudy> = {
             body: "Pre-built files with structure baked in. Partners could swap in their own art, copy, and colors without breaking the layout. Templates ensured every asset was correctly sized, positioned, and safe-zoned by default. Photoshop versions mattered because not every partner studio worked in Figma.",
           },
           {
-            sub: "Mockup previews showing context.",
+            sub: "Mockup previews showing context",
             body: "Templates also showed the asset in context — how it would render on Raijin in production. Partner-side designers could see whether their work would land correctly before sending it for review, which cut a full negotiation cycle out of most campaigns.",
           },
         ],
       },
-      { kind: "imageWide", image: partners54 },
+      {
+        kind: "imageWide",
+        image: partners54,
+        caption:
+          "On the left: the unified Notion spec. On the right: an example of some assets provided, and some mockups of how they were used for the campaigns. I also provided Figma and Photoshop starting templates in case they wanted it.",
+      },
     ],
     results: {
       paragraphs: [
@@ -233,7 +258,12 @@ export const caseStudies: Record<string, CaseStudy> = {
       "Ex Populus was building a card-based trading game and needed a web UI. When I joined the team, the project was carrying significant design debt that was slowing every dev and QA cycle.",
     ],
     blocks: [
-      { kind: "imageWide", image: exPopulus2 },
+      {
+        kind: "imageWide",
+        image: exPopulus2,
+        caption:
+          "Design debt: a sample of the many conflicting and disjointed button styles we had used just within a single website.",
+      },
       {
         kind: "section",
         heading: "Design debt",
@@ -244,7 +274,12 @@ export const caseStudies: Record<string, CaseStudy> = {
           "I argued against it. For our team, our stack, our workflow, we just didn’t need it.",
         ],
       },
-      { kind: "imageWide", image: exPopulus3 },
+      {
+        kind: "imageWide",
+        image: exPopulus3,
+        caption:
+          "Don’t have a design system? You’ll get endless rounds of QA and a mountain of documentation work, creating useless overhead that slows down business cycles and annoys all the team members.",
+      },
       {
         kind: "section",
         heading: "Why shadcn was enough",
@@ -263,7 +298,12 @@ export const caseStudies: Record<string, CaseStudy> = {
           ],
         },
       },
-      { kind: "imageWide", image: exPopulus4 },
+      {
+        kind: "imageWide",
+        image: exPopulus4,
+        caption:
+          "A sample of the components and blocks we built for this new design system.",
+      },
       {
         kind: "section",
         heading: "Implementation",
@@ -273,7 +313,12 @@ export const caseStudies: Record<string, CaseStudy> = {
           "Within a single day, designers can be shipping branded hi-fi screens with all tokens and specs in a format devs can build directly from.",
         ],
       },
-      { kind: "imageWide", image: exPopulus5 },
+      {
+        kind: "imageWide",
+        image: exPopulus5,
+        caption:
+          "This Figma kit comes with components that are built and structured to be easily understandable to AI. In some cases handoff can be done with just a single Figma tool call with any agentic coding harness.",
+      },
     ],
     results: {
       paragraphs: [
@@ -311,7 +356,12 @@ export const caseStudies: Record<string, CaseStudy> = {
       "Products like this didn’t ship as consumer apps. They shipped as CLI tools, configured by hand, run from a terminal. That was the category convention when we started.",
     ],
     blocks: [
-      { kind: "imageWide", image: xai2 },
+      {
+        kind: "imageWide",
+        image: xai2,
+        caption:
+          "A sample of three different node CLI interfaces. For products that are aiming for mass discoverability, the steep learning curve and unfriendly user experience makes these interfaces indecipherable for beginners.",
+      },
       {
         kind: "section",
         heading: "Approach",
@@ -321,7 +371,12 @@ export const caseStudies: Record<string, CaseStudy> = {
           "The cost of building the UI was real but bounded. The cost of shipping CLI-only was every non-developer buyer we’d lose, which turned out to be most of them.",
         ],
       },
-      { kind: "imageWide", image: xai3 },
+      {
+        kind: "imageWide",
+        image: xai3,
+        caption:
+          "BitTorrent is an example of a tool or technology that only achieved significant consumer adoption only after a graphical user interface became available. To this day the vast majority of users only interact with the technology through graphical UI.",
+      },
       {
         kind: "section",
         heading: "An all-in-one desktop app",
@@ -330,7 +385,12 @@ export const caseStudies: Record<string, CaseStudy> = {
           "The design bet was that this audience didn’t want to learn the infrastructure. They wanted to participate in it.",
         ],
       },
-      { kind: "imageWide", image: xai4 },
+      {
+        kind: "imageWide",
+        image: xai4,
+        caption:
+          "Significant resources were invested into making sure users could do anything a CLI user could do, without having to type a command, or look at an actual command line.",
+      },
     ],
     results: {
       paragraphs: [
