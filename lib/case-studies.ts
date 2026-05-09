@@ -106,7 +106,6 @@ export const caseStudies: Record<string, CaseStudy> = {
         kind: "imageWide",
         image: raijin2,
         bleed: true,
-        aspect: "1024/790",
         caption:
           "Pictured: six giveaway campaigns with wildly varying user participation rates. Ideally every giveaway should be as close to 100% as possible.",
       },
@@ -136,7 +135,6 @@ export const caseStudies: Record<string, CaseStudy> = {
         kind: "imageWide",
         image: raijin4,
         bleed: true,
-        aspect: "1024/598",
         caption:
           "Figma prototypes are extremely time-consuming to make. With well-structured prompts, you can iterate at the speed of pen and paper, making it ideal for fast-moving teams and flat, unstructured orgs.",
       },
@@ -153,7 +151,6 @@ export const caseStudies: Record<string, CaseStudy> = {
         kind: "imageWide",
         image: raijin5,
         bleed: true,
-        aspect: "1024/598",
         caption:
           "The new and improved flow. In addition to eliminating a source of unnecessary clicks and friction that scale linearly with the amount of campaigns, we also gamified the process of completing all the tasks on the website.",
       },
@@ -201,7 +198,6 @@ export const caseStudies: Record<string, CaseStudy> = {
         kind: "imageWide",
         image: partners2,
         bleed: true,
-        aspect: "1024/503",
         caption:
           "Anonymized messages from our communication channels we used to coordinate campaigns. Before going live, we’d have many rounds of back-and-forths on file formats, resolutions, image quality, branding, cropping concerns, and sharing permissions.",
       },
@@ -255,7 +251,6 @@ export const caseStudies: Record<string, CaseStudy> = {
         kind: "imageWide",
         image: partners54,
         bleed: true,
-        aspect: "1024/503",
         caption:
           "On the left: the unified Notion spec. On the right: an example of some assets provided, and some mockups of how they were used for the campaigns. I also provided Figma and Photoshop starting templates in case they wanted it.",
       },
@@ -297,7 +292,6 @@ export const caseStudies: Record<string, CaseStudy> = {
         kind: "imageWide",
         image: exPopulus2,
         bleed: true,
-        aspect: "1024/359",
         caption:
           "Design debt: a sample of the many conflicting and disjointed button styles we had used just within a single website.",
       },
@@ -315,7 +309,6 @@ export const caseStudies: Record<string, CaseStudy> = {
         kind: "imageWide",
         image: exPopulus3,
         bleed: true,
-        aspect: "1024/643",
         caption:
           "Don’t have a design system? You’ll get endless rounds of QA and a mountain of documentation work, creating useless overhead that slows down business cycles and annoys all the team members.",
       },
@@ -342,7 +335,6 @@ export const caseStudies: Record<string, CaseStudy> = {
         kind: "imageWide",
         image: exPopulus4,
         bleed: true,
-        aspect: "1024/610",
         caption:
           "A sample of the components and blocks we built for this new design system.",
       },
@@ -379,7 +371,6 @@ export const caseStudies: Record<string, CaseStudy> = {
         kind: "imageWide",
         image: exPopulus5,
         bleed: true,
-        aspect: "1024/691",
         caption:
           "This Figma kit comes with components that are built and structured to be easily understandable to AI. In some cases handoff can be done with just a single Figma tool call with any agentic coding harness.",
       },
@@ -424,7 +415,6 @@ export const caseStudies: Record<string, CaseStudy> = {
         kind: "imageWide",
         image: xai2,
         bleed: true,
-        aspect: "1024/610",
         caption:
           "A sample of three different node CLI interfaces. For products that are aiming for mass discoverability, the steep learning curve and unfriendly user experience makes these interfaces indecipherable for beginners.",
       },
@@ -455,7 +445,6 @@ export const caseStudies: Record<string, CaseStudy> = {
         kind: "imageWide",
         image: xai4,
         bleed: true,
-        aspect: "1024/830",
         caption:
           "Significant resources were invested into making sure users could do anything a CLI user could do, without having to type a command, or look at an actual command line.",
       },

@@ -5,20 +5,20 @@ import { MeshGradient } from "@paper-design/shaders-react";
 import type { MediaPalette } from "@/components/ui/media-frame";
 
 const FALLBACK_COLORS = ["#F4F4F5", "#C7D2FE", "#FBCFE8", "#A5F3FC"];
-// Fraction of the image's natural rendered height to clip off the bottom in
-// bleed mode. The visible cutoff lands this far above where the image would
-// naturally end, so its rounded bottom corners stay hidden behind the frame.
-const BLEED_CROP = 0.15;
 // Reference container width used to translate (image dimensions + padding)
-// into a fixed aspect ratio. At other widths the ratio drifts slightly, but
-// the bleed effect still reads correctly.
+// into a fixed inner-div height for bleed mode.
 const BLEED_REF_WIDTH = 1024;
 
-function bleedAspect(src: StaticImageData, padding: number) {
+/**
+ * Computes the inner wrapper's pixel height for a bleed image:
+ *   (image_rendered_height_at_max - 2*padding) * 0.85
+ * This sits the image inside a shorter box so its bottom overflows past the
+ * outer frame's `overflow: clip` boundary. Mirrors the home thumbnails.
+ */
+function defaultBleedHeight(src: StaticImageData, padding: number) {
   const imageWidth = BLEED_REF_WIDTH - 2 * padding;
   const imageHeight = imageWidth * (src.height / src.width);
-  const containerHeight = padding + imageHeight * (1 - BLEED_CROP);
-  return `${BLEED_REF_WIDTH}/${containerHeight}`;
+  return (imageHeight - 2 * padding) * 0.85;
 }
 const GRADIENT_MASK = "linear-gradient(to bottom, black 0%, rgba(0,0,0,0.4) 100%)";
 const GRADIENT_FALLBACK =
@@ -46,6 +46,7 @@ export function CaseImage({
   hoverScale = false,
   preload = false,
   bleed = false,
+  bleedHeight,
   sizes = "(max-width: 1024px) 100vw, 1024px",
 }: {
   src?: StaticImageData;
@@ -56,6 +57,8 @@ export function CaseImage({
   hoverScale?: boolean;
   preload?: boolean;
   bleed?: boolean;
+  /** Override the bleed wrapper height (px). Defaults to a per-image computed value. */
+  bleedHeight?: number;
   sizes?: string;
 }) {
   const colors = palette?.colors ?? FALLBACK_COLORS;
@@ -63,12 +66,12 @@ export function CaseImage({
 
   const containerSizing = src
     ? bleed
-      ? {
-          aspectRatio: bleedAspect(src, padding),
-          padding: `${padding}px ${padding}px 0`,
-        }
+      ? { padding: `${padding}px ${padding}px 0` }
       : { padding: `${padding}px` }
     : { aspectRatio: aspect };
+
+  const innerHeight =
+    bleed && src ? (bleedHeight ?? defaultBleedHeight(src, padding)) : undefined;
 
   return (
     <div
@@ -111,7 +114,10 @@ export function CaseImage({
       />
 
       {src && (
-        <div className="relative flex items-start justify-center">
+        <div
+          className="relative flex items-start justify-center"
+          style={innerHeight ? { height: innerHeight } : undefined}
+        >
           <Image
             src={src}
             alt={alt}
