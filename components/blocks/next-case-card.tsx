@@ -4,13 +4,13 @@ import { ArrowRight } from "@/components/ui/button";
 import { CaseImage } from "@/components/ui/case-image";
 import type { MediaPalette } from "@/components/ui/media-frame";
 
-// Thumb height. Picked so the container aspect-ratio is >= the widest case
-// study thumb (xai-thumb, aspect 1.83). That way object-cover always crops
-// vertically (top stays, bottom clips) — never sideways.
-//   desktop inner_w ≈ 416 → max-aspect-allowed h ≈ 227 → 220 leaves headroom
-//   mobile  inner_w ≈ 296 → max-aspect-allowed h ≈ 162 → 160 leaves headroom
-const THUMB_HEIGHT_DESKTOP = 220;
-const THUMB_HEIGHT_MOBILE = 160;
+// Inner-wrapper visible height of the thumb. The image is w-full h-auto so it
+// always renders at natural aspect; if its rendered height exceeds the wrapper
+// it overflows vertically and gets clipped by the outer's overflow:clip. Side
+// cropping is impossible by construction, so these heights are purely a
+// design knob — bigger = more of the image visible before clipping.
+const THUMB_HEIGHT_DESKTOP = 256;
+const THUMB_HEIGHT_MOBILE = 180;
 
 export function NextCaseCard({
   href,
@@ -80,7 +80,7 @@ export function NextCaseCard({
             padding={32}
             hoverScale
             bleed
-            bleedHeight={`clamp(${THUMB_HEIGHT_MOBILE}px, 28.6vw, ${THUMB_HEIGHT_DESKTOP}px)`}
+            bleedHeight={`clamp(${THUMB_HEIGHT_MOBILE}px, 33vw, ${THUMB_HEIGHT_DESKTOP}px)`}
             sizes="(max-width: 768px) 100vw, 512px"
           />
         </div>

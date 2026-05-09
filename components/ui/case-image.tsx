@@ -131,15 +131,20 @@ export function CaseImage({
 
       {src && (
         <div className="relative" style={innerStyle}>
+          {/* Image is w-full + natural-ratio height (no fill, no object-cover).
+              That way it can never be cropped sideways — width is always 100%
+              of the inner div. If the natural rendered height exceeds the
+              inner div's fixed/aspect-derived height, the image overflows
+              downward and the outer container's `overflow: clip` handles the
+              vertical clipping. Matches the home-page thumbnail behavior. */}
           <Image
             src={src}
             alt={alt}
-            fill
             sizes={sizes}
             preload={preload}
             placeholder="blur"
             className={cn(
-              "object-cover object-top",
+              "block w-full h-auto",
               hoverScale &&
                 "transition-transform duration-[var(--duration-medium)] ease-[var(--ease-standard)] group-hover:scale-[1.015]",
             )}
