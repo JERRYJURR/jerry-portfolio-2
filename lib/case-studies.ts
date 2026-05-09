@@ -218,18 +218,8 @@ export const caseStudies: Record<string, CaseStudy> = {
         kind: "section",
         heading: "What was broken?",
         paragraphs: [
-          {
-            sub: "BD couldn’t communicate requirements clearly.",
-            body: "Partner success managers were the interface between partners and our team, but they weren’t designers. They couldn’t explain why specs mattered, so they passed through whatever the partner sent.",
-          },
-          {
-            sub: "External designers shipped wrong assets.",
-            body: "Without clear specs, partner-side designers guessed at aspect ratios, focal points, and safe zones. Most first-pass deliverables were unusable.",
-          },
-          {
-            sub: "Internal designers fixed work twice.",
-            body: "When we did the work in-house, partners would push back with changes that violated platform requirements. We’d ship correct, get pushed to incorrect, then negotiate back. Every campaign, multiple rounds.",
-          },
+          "Partner success managers were the main interface between partners and our team, but they weren’t designers. They didn’t have the expertise to pass through clear design specs or requirements. As a result, we’d get assets that we couldn’t use due to incorrect sizing, safe points, quality, or formats.",
+          "When we did the work in-house and sent it over to the partners to be proofed, they’d push back with changes that sometimes didn’t conform to the platform requirements. We’d have to negotiate back, and this could go on for a couple of rounds, creating more unnecessary friction.",
         ],
       },
       {
@@ -240,24 +230,11 @@ export const caseStudies: Record<string, CaseStudy> = {
       },
       {
         kind: "section",
-        heading: "The fix: a layered handoff system",
+        heading: "The fix: a unified handoff spec",
         paragraphs: [
-          {
-            sub: "A single source of truth in Notion",
-            body: "One page, always current. It replaced the previous mess of specs scattered across emails and old briefs. BD could send the same link to every partner, every time, and trust that the information was authoritative.",
-          },
-          {
-            sub: "Specs with examples, not just specs",
-            body: "Most partner teams weren’t designers, so specs without visuals assumed too much. Every spec came with a worked example: where logos belonged, where focal points should sit, what a correct aspect ratio looked like in practice.",
-          },
-          {
-            sub: "Editable templates in Figma and Photoshop.",
-            body: "Pre-built files with structure baked in. Partners could swap in their own art, copy, and colors without breaking the layout. Templates ensured every asset was correctly sized, positioned, and safe-zoned by default. Photoshop versions mattered because not every partner studio worked in Figma.",
-          },
-          {
-            sub: "Mockup previews showing context",
-            body: "Templates also showed the asset in context — how it would render on Raijin in production. Partner-side designers could see whether their work would land correctly before sending it for review, which cut a full negotiation cycle out of most campaigns.",
-          },
+          "I created a Notion doc that housed every spec and requirement in exhaustive detail, and updated it constantly. BD and Marketing could send the same link to every partner, and know for certain that it was up-to-date.",
+          "It contained working examples for each deliverable: what not to do and why, examples of what you should do, and diagrams showing safe zones and danger zones. It had links to pre-built Figma and Photoshop templates that any designer (on our side or their side) could use to produce assets that were much more consistently up-to-spec.",
+          "Additionally, to shorten the proofing cycle, I included Figma and Photoshop mockup templates that designers could easily drag and drop their assets into to see how it would look on the platform in production, thus cutting more unneeded negotiations.",
         ],
       },
       {
@@ -270,7 +247,7 @@ export const caseStudies: Record<string, CaseStudy> = {
     ],
     results: {
       paragraphs: [
-        "The system absorbed partner growth without absorbing more designer headcount. First-pass acceptance climbed from occasional to standard, and every party in the pipeline knew what authoritative looked like.",
+        "The campaign asset creation pipeline was previously becoming unmanageable under a growing mountain of requests and demands for changes and fixes. This unified Notion spec almost instantaneously fixed that. Asset creation chaos faded into a steady, quiet background noise, even as our system scaled to 40+ external partners. What was once a giant headache and blocker became a process that was as easy as sending a link.",
       ],
       stats: [
         { value: "40+", label: "External partners" },
