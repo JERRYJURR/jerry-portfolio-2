@@ -5,6 +5,16 @@ import { MeshGradient } from "@paper-design/shaders-react";
 import type { MediaPalette } from "@/components/ui/media-frame";
 
 const FALLBACK_COLORS = ["#F4F4F5", "#C7D2FE", "#FBCFE8", "#A5F3FC"];
+// In bleed mode, shrink the container's visible height vs the supplied
+// aspect so the image clearly overflows and gets clipped — without this
+// the image fits exactly and you can still see its rounded bottom corners.
+const BLEED_HEIGHT_FACTOR = 0.85;
+
+function tightenAspectForBleed(aspect: string) {
+  const [w, h] = aspect.split("/").map(Number);
+  if (!w || !h) return aspect;
+  return `${w}/${h * BLEED_HEIGHT_FACTOR}`;
+}
 const GRADIENT_MASK = "linear-gradient(to bottom, black 0%, rgba(0,0,0,0.4) 100%)";
 const GRADIENT_FALLBACK =
   "linear-gradient(in oklab 180deg, oklab(80.2% 0 0 / 5%) 0%, oklab(80.2% 0 0 / 25%) 100%)";
@@ -49,7 +59,7 @@ export function CaseImage({
   const containerSizing = src
     ? bleed
       ? {
-          aspectRatio: aspect,
+          aspectRatio: tightenAspectForBleed(aspect),
           padding: `${padding}px ${padding}px 0`,
         }
       : { padding: `${padding}px` }

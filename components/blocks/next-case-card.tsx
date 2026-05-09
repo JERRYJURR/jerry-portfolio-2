@@ -71,6 +71,7 @@ export function NextCaseCard({
             aspect="4/3"
             padding={32}
             hoverScale
+            bleed
             sizes="(max-width: 768px) 100vw, 512px"
           />
         </div>
