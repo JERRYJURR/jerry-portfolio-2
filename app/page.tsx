@@ -5,6 +5,7 @@ import { Container } from "@/components/ui/container";
 import { Eyebrow } from "@/components/ui/eyebrow";
 import { Reveal } from "@/components/ui/reveal";
 import { StripeBand } from "@/components/ui/stripe-band";
+import { UnicornBackdrop } from "@/components/ui/unicorn-backdrop";
 import { Header } from "@/components/blocks/header";
 import { StatStrip } from "@/components/blocks/stat-strip";
 import { CaseStudyTile } from "@/components/blocks/case-study-tile";
@@ -107,7 +108,11 @@ export default function Home() {
       <Header />
 
       {/* Hero */}
-      <section className="flex flex-col items-center gap-8 px-4 md:px-12 pt-16 md:pt-24 pb-20">
+      <section className="relative isolate flex flex-col items-center gap-8 px-4 md:px-12 pt-16 md:pt-24 pb-20 overflow-hidden">
+        <UnicornBackdrop
+          projectId="C992Rmgwd9utoQVCpRhf"
+          className="pointer-events-none absolute inset-0 -z-10"
+        />
         <Reveal delay={80}>
           <Avatar size="lg" src="/jerry.webp" alt="Jerry Kou" />
         </Reveal>
