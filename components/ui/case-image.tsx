@@ -1,7 +1,7 @@
 "use client";
 
 import Image, { type StaticImageData } from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import { MeshGradient } from "@paper-design/shaders-react";
 import { cn } from "@/lib/cn";
@@ -227,6 +227,23 @@ function Lightbox({
   alt: string;
   onClose: () => void;
 }) {
+  const imgRef = useRef<HTMLImageElement>(null);
+  // Pinch/pan state lives in a ref so transient updates don't re-render.
+  // Pointer Events unify mouse + touch; touch-action: none on the container
+  // stops the browser from grabbing the gesture as page zoom / pull-to-refresh.
+  const stateRef = useRef({
+    scale: 1,
+    tx: 0,
+    ty: 0,
+    pointers: new Map<number, { x: number; y: number }>(),
+    startScale: 1,
+    startTx: 0,
+    startTy: 0,
+    startDist: 0,
+    startCx: 0,
+    startCy: 0,
+  });
+
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
@@ -240,6 +257,79 @@ function Lightbox({
     };
   }, [onClose]);
 
+  useEffect(() => {
+    const img = imgRef.current;
+    if (!img) return;
+    const s = stateRef.current;
+
+    const apply = () => {
+      img.style.transform = `translate(${s.tx}px, ${s.ty}px) scale(${s.scale})`;
+    };
+
+    const onPointerDown = (e: PointerEvent) => {
+      img.setPointerCapture(e.pointerId);
+      s.pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+
+      if (s.pointers.size === 2) {
+        const [p1, p2] = Array.from(s.pointers.values());
+        s.startDist = Math.hypot(p2.x - p1.x, p2.y - p1.y);
+        s.startScale = s.scale;
+      } else if (s.pointers.size === 1) {
+        s.startCx = e.clientX;
+        s.startCy = e.clientY;
+        s.startTx = s.tx;
+        s.startTy = s.ty;
+      }
+    };
+
+    const onPointerMove = (e: PointerEvent) => {
+      if (!s.pointers.has(e.pointerId)) return;
+      s.pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+
+      if (s.pointers.size === 2) {
+        const [p1, p2] = Array.from(s.pointers.values());
+        const dist = Math.hypot(p2.x - p1.x, p2.y - p1.y);
+        if (s.startDist > 0) {
+          s.scale = Math.max(1, Math.min(4, s.startScale * (dist / s.startDist)));
+          apply();
+        }
+      } else if (s.pointers.size === 1 && s.scale > 1) {
+        const p = s.pointers.values().next().value!;
+        s.tx = s.startTx + (p.x - s.startCx);
+        s.ty = s.startTy + (p.y - s.startCy);
+        apply();
+      }
+    };
+
+    const onPointerEnd = (e: PointerEvent) => {
+      s.pointers.delete(e.pointerId);
+      // Pinch -> pan: re-anchor the remaining finger so the next drag isn't a jump.
+      if (s.pointers.size === 1) {
+        const p = s.pointers.values().next().value!;
+        s.startCx = p.x;
+        s.startCy = p.y;
+        s.startTx = s.tx;
+        s.startTy = s.ty;
+      } else if (s.pointers.size === 0 && s.scale <= 1) {
+        s.scale = 1;
+        s.tx = 0;
+        s.ty = 0;
+        apply();
+      }
+    };
+
+    img.addEventListener("pointerdown", onPointerDown);
+    img.addEventListener("pointermove", onPointerMove);
+    img.addEventListener("pointerup", onPointerEnd);
+    img.addEventListener("pointercancel", onPointerEnd);
+    return () => {
+      img.removeEventListener("pointerdown", onPointerDown);
+      img.removeEventListener("pointermove", onPointerMove);
+      img.removeEventListener("pointerup", onPointerEnd);
+      img.removeEventListener("pointercancel", onPointerEnd);
+    };
+  }, []);
+
   if (typeof document === "undefined") return null;
 
   return createPortal(
@@ -248,14 +338,23 @@ function Lightbox({
       aria-modal="true"
       onClick={onClose}
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 p-4"
+      style={{ touchAction: "none", overscrollBehavior: "contain" }}
     >
-      <Image
-        src={src}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        ref={imgRef}
+        src={src.src}
         alt={alt}
-        sizes="100vw"
-        className="max-h-full max-w-full w-auto h-auto"
-        style={{ touchAction: "pinch-zoom" }}
+        width={src.width}
+        height={src.height}
+        draggable={false}
         onClick={(e) => e.stopPropagation()}
+        className="max-h-full max-w-full w-auto h-auto select-none"
+        style={{
+          touchAction: "none",
+          transformOrigin: "center center",
+          willChange: "transform",
+        }}
       />
       <button
         type="button"
