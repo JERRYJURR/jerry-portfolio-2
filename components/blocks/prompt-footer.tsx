@@ -35,7 +35,7 @@ export function PromptFooter() {
       <div className="px-4 md:px-12">
         <div className="mx-auto w-full max-w-[1024px] border-x border-rule">
           <div className="flex flex-col items-center gap-4 py-12">
-            <p className="font-display text-[20px] leading-[1.5] text-ink-muted text-center">
+            <p className="font-display text-[16px] md:text-[20px] leading-[1.5] text-ink-muted text-center">
               Want to collaborate?
               <br />
               Let&rsquo;s connect.
@@ -47,6 +47,7 @@ export function PromptFooter() {
               href={LINKS.calendar}
               target="_blank"
               rel="noopener"
+              className="max-md:!h-9 max-md:!px-3.5 max-md:!text-[14px]"
             >
               Book a call
               <ArrowRight motion="btn-x" />
@@ -55,7 +56,7 @@ export function PromptFooter() {
               variant="outline"
               size="md"
               onClick={onCopy}
-              className="transition-transform"
+              className="transition-transform max-md:!h-9 max-md:!px-3.5 max-md:!text-[14px]"
               style={{
                 transform: copied ? "scale(1.04)" : undefined,
               }}

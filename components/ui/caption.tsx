@@ -10,7 +10,7 @@ export function Caption({
   return (
     <p
       className={cn(
-        "font-display text-[16px] leading-6 text-center text-ink-muted",
+        "font-display text-[14px] md:text-[16px] leading-6 text-center text-ink-muted",
         className,
       )}
     >

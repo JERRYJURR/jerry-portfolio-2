@@ -44,14 +44,14 @@ export function NextCaseCard({
           "
         />
         <div className="relative flex flex-1 flex-col justify-between gap-3 md:gap-4 p-4 md:p-6 order-2 md:order-1">
-          <h3 className="font-display text-[24px] md:text-[32px] font-normal tracking-[-0.05em] leading-none text-ink">
+          <h3 className="font-display text-[20px] md:text-[32px] font-normal tracking-[-0.05em] leading-none text-ink">
             Next
           </h3>
-          <p className="text-[16px] md:text-[20px] leading-[1.5] text-ink-muted">
+          <p className="text-[14px] md:text-[20px] leading-[1.25] md:leading-[1.5] text-ink-muted">
             {headline}
           </p>
           <div className="flex items-center gap-1">
-            <span className="font-display text-[15px] md:text-[16px] font-medium text-ink">
+            <span className="font-display text-[14px] md:text-[16px] font-medium text-ink">
               <span
                 className="
                   bg-no-repeat bg-left-bottom bg-[length:0%_1px] bg-[linear-gradient(currentColor,currentColor)]
@@ -71,7 +71,7 @@ export function NextCaseCard({
             />
           </div>
         </div>
-        <div className="relative flex-1 order-1 md:order-2">
+        <div className="relative flex-1 order-1 md:order-2 max-md:p-2">
           <CaseImage
             src={imageSrc}
             alt={headline}
@@ -82,6 +82,8 @@ export function NextCaseCard({
             bleed
             bleedHeight={`clamp(${THUMB_HEIGHT_MOBILE}px, 33vw, ${THUMB_HEIGHT_DESKTOP}px)`}
             sizes="(max-width: 768px) 100vw, 512px"
+            className="max-md:!rounded-2xl"
+            zoomable={false}
           />
         </div>
       </div>

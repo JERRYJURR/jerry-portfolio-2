@@ -22,14 +22,14 @@ export function CaseStudyLayout({ data }: { data: CaseStudy }) {
       <Header />
 
       {/* Title */}
-      <section className="pt-16 md:pt-24 pb-12">
+      <section className="pt-16 md:pt-24 pb-8 md:pb-12">
         <Container>
           <Reveal delay={80}>
           <div className="flex flex-col items-center gap-4 text-center">
-            <p className="font-display text-[20px] leading-[1.5] text-ink-muted">
+            <p className="font-display text-[14px] md:text-[20px] leading-[1.5] text-ink-muted">
               Case Study
             </p>
-            <h1 className="font-display text-[40px] md:text-[48px] font-normal tracking-[-0.05em] leading-[1.25] text-ink max-w-[24ch]">
+            <h1 className="font-display text-[28px] md:text-[48px] font-normal tracking-[-0.05em] leading-[1.25] text-ink max-w-[24ch]">
               {data.headline}
             </h1>
           </div>
@@ -38,7 +38,7 @@ export function CaseStudyLayout({ data }: { data: CaseStudy }) {
       </section>
 
       {/* Hero image */}
-      <section className="pb-12">
+      <section className="pb-8 md:pb-12">
         <Container>
           <Reveal delay={240}>
             <CaseImage
@@ -55,15 +55,15 @@ export function CaseStudyLayout({ data }: { data: CaseStudy }) {
       </section>
 
       {/* Overview row — text + meta card */}
-      <section className="pb-16">
+      <section className="pb-8 md:pb-16">
         <Container>
           <Reveal>
-          <div className="flex flex-col gap-12 md:flex-row md:gap-6">
-            <div className="flex flex-1 flex-col gap-8">
-              <h2 className="font-display text-[28px] md:text-[32px] font-normal tracking-[-0.05em] leading-none text-ink">
+          <div className="flex flex-col gap-8 md:flex-row md:gap-6">
+            <div className="flex flex-1 flex-col gap-6 md:gap-8">
+              <h2 className="font-display text-[24px] md:text-[32px] font-normal tracking-[-0.025em] md:tracking-[-0.05em] leading-none text-ink">
                 Overview
               </h2>
-              <div className="flex flex-col gap-4 text-[18px] md:text-[20px] leading-[1.5] text-ink-muted">
+              <div className="flex flex-col gap-4 text-[16px] md:text-[20px] leading-[1.5] text-ink-muted">
                 {data.overview.map((p, i) => (
                   <p key={i}>{p}</p>
                 ))}
@@ -95,15 +95,15 @@ export function CaseStudyLayout({ data }: { data: CaseStudy }) {
       </div>
 
       {/* Results */}
-      <section className="py-16">
+      <section className="py-8 md:py-16">
         <Container>
           <Reveal>
           <div className="flex flex-col gap-12 md:flex-row md:gap-6">
-            <div className="flex flex-1 flex-col gap-8">
-              <h2 className="font-display text-[28px] md:text-[32px] font-normal tracking-[-0.05em] leading-none text-ink">
+            <div className="flex flex-1 flex-col gap-6 md:gap-8">
+              <h2 className="font-display text-[24px] md:text-[32px] font-normal tracking-[-0.025em] md:tracking-[-0.05em] leading-none text-ink">
                 Results and impact
               </h2>
-              <div className="flex flex-col gap-4 text-[18px] md:text-[20px] leading-[1.5] text-ink-muted">
+              <div className="flex flex-col gap-4 text-[16px] md:text-[20px] leading-[1.5] text-ink-muted">
                 {data.results.paragraphs.map((p, i) => (
                   <p key={i}>{p}</p>
                 ))}
@@ -120,7 +120,7 @@ export function CaseStudyLayout({ data }: { data: CaseStudy }) {
       </section>
 
       {/* Next case */}
-      <section className="pt-32 md:pt-40 pb-16">
+      <section className="pt-16 md:pt-40 pb-8 md:pb-16">
         <Container>
           <Reveal>
             <NextCaseCard
@@ -149,12 +149,12 @@ function BlockRenderer({
     const [a, b] = block.images ?? [undefined, undefined];
     const aspect = block.aspect ?? "4/3";
     return (
-      <section className="py-12">
+      <section className="py-8 md:py-12">
         <Container>
           <div className="flex flex-col gap-6">
-            <div className="grid gap-6 md:grid-cols-2">
-              <CaseImage src={a} palette={palette} aspect={aspect} bleed={block.bleed} bleedFactor={block.bleedFactor} sizes="(max-width: 768px) 100vw, 500px" />
-              <CaseImage src={b} palette={palette} aspect={aspect} bleed={block.bleed} bleedFactor={block.bleedFactor} sizes="(max-width: 768px) 100vw, 500px" />
+            <div className="grid gap-4 md:gap-6 md:grid-cols-2">
+              <CaseImage src={a} palette={palette} aspect={aspect} bleed={block.bleed} bleedFactor={block.bleedFactor} zoomable={block.zoomable} sizes="(max-width: 768px) 100vw, 500px" />
+              <CaseImage src={b} palette={palette} aspect={aspect} bleed={block.bleed} bleedFactor={block.bleedFactor} zoomable={block.zoomable} sizes="(max-width: 768px) 100vw, 500px" />
             </div>
             {block.caption && <Caption>{block.caption}</Caption>}
           </div>
@@ -166,10 +166,10 @@ function BlockRenderer({
   if (block.kind === "imageWide") {
     const aspect = block.aspect ?? "32/15";
     return (
-      <section className="py-12">
+      <section className="py-4 md:py-12">
         <Container>
           <div className="flex flex-col gap-6">
-            <CaseImage src={block.image} palette={palette} aspect={aspect} bleed={block.bleed} bleedFactor={block.bleedFactor} />
+            <CaseImage src={block.image} palette={palette} aspect={aspect} bleed={block.bleed} bleedFactor={block.bleedFactor} zoomable={block.zoomable} />
             {block.caption && <Caption>{block.caption}</Caption>}
           </div>
         </Container>
@@ -181,10 +181,10 @@ function BlockRenderer({
   // Without, single 500w left-aligned column.
   const sectionBody = (
     <>
-      <h2 className="font-display text-[28px] md:text-[32px] font-normal tracking-[-0.05em] leading-none text-ink">
+      <h2 className="font-display text-[24px] md:text-[32px] font-normal tracking-[-0.025em] md:tracking-[-0.05em] leading-none text-ink">
         {block.heading}
       </h2>
-      <div className="flex flex-col gap-6 text-[18px] md:text-[20px] leading-[1.5] text-ink-muted">
+      <div className="flex flex-col gap-6 text-[16px] md:text-[20px] leading-[1.5] text-ink-muted">
         {block.paragraphs.map((p, i) =>
           typeof p === "string" ? (
             <p key={i}>{p}</p>
@@ -202,29 +202,29 @@ function BlockRenderer({
   if (block.aside) {
     const aside = block.aside;
     return (
-      <section className="py-12">
+      <section className="py-8 md:py-12">
         <Container>
           <div className="flex flex-col gap-12 md:flex-row md:gap-6">
-            <div className="flex flex-1 flex-col gap-8">{sectionBody}</div>
+            <div className="flex flex-1 flex-col gap-6 md:gap-8">{sectionBody}</div>
             <div className="flex flex-1 justify-end self-start">
               <div
                 className={cn(
-                  "flex h-fit w-full flex-col self-start rounded-2xl bg-bg p-6 outline outline-1 outline-rule-strong md:w-[75%]",
-                  aside.items ? "gap-6" : "gap-4",
+                  "flex h-fit w-full flex-col self-start rounded-2xl bg-bg outline outline-1 outline-rule-strong md:w-[75%]",
+                  aside.items ? "gap-6 p-4 md:p-6" : "gap-4 p-6",
                 )}
               >
-                <h3 className="font-display text-[24px] font-normal tracking-[-0.05em] leading-[1.25] text-ink">
+                <h3 className="font-display text-[20px] md:text-[24px] font-normal tracking-[-0.05em] leading-[1.25] text-ink">
                   {aside.heading}
                 </h3>
                 {aside.paragraphs && (
-                  <div className="flex flex-col gap-4 text-[16px] leading-6 text-ink-muted">
+                  <div className="flex flex-col gap-4 text-[14px] md:text-[16px] leading-[1.25] md:leading-6 text-ink-muted">
                     {aside.paragraphs.map((p, i) => (
                       <p key={i}>{p}</p>
                     ))}
                   </div>
                 )}
                 {aside.items && (
-                  <div className="flex flex-col gap-6">
+                  <div className="flex flex-col gap-4 md:gap-6">
                     {aside.items.map((item, i) => (
                       <div key={i} className="flex items-start gap-4">
                         <Image
@@ -238,10 +238,10 @@ function BlockRenderer({
                           )}
                         />
                         <div className="flex flex-col gap-1">
-                          <p className="font-display text-[16px] font-medium leading-6 text-ink">
+                          <p className="font-display text-[14px] md:text-[16px] font-medium leading-6 text-ink">
                             {item.heading}
                           </p>
-                          <p className="text-[16px] leading-6 text-ink-muted">
+                          <p className="text-[14px] md:text-[16px] leading-[1.25] md:leading-6 text-ink-muted">
                             {item.body}
                           </p>
                         </div>
@@ -260,7 +260,7 @@ function BlockRenderer({
   return (
     <section className="py-12">
       <Container>
-        <div className="flex w-full flex-col gap-8 md:w-1/2">{sectionBody}</div>
+        <div className="flex w-full flex-col gap-6 md:gap-8 md:w-1/2">{sectionBody}</div>
       </Container>
     </section>
   );

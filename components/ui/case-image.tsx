@@ -1,6 +1,8 @@
 "use client";
 
 import Image, { type StaticImageData } from "next/image";
+import { useEffect, useState } from "react";
+import { createPortal } from "react-dom";
 import { MeshGradient } from "@paper-design/shaders-react";
 import { cn } from "@/lib/cn";
 import type { MediaPalette } from "@/components/ui/media-frame";
@@ -35,6 +37,8 @@ export function CaseImage({
   bleedFactor = 0.85,
   bleedHeight,
   sizes = "(max-width: 1024px) 100vw, 1024px",
+  className,
+  zoomable = true,
 }: {
   src?: StaticImageData;
   alt?: string;
@@ -51,9 +55,15 @@ export function CaseImage({
   /** Override the inner wrapper height (px or CSS string). Used by NextCaseCard. */
   bleedHeight?: number | string;
   sizes?: string;
+  /** Extra classes merged into the outer wrapper. */
+  className?: string;
+  /** Mobile tap-to-zoom (button + lightbox). Set false to opt out. */
+  zoomable?: boolean;
 }) {
   const colors = palette?.colors ?? FALLBACK_COLORS;
   const [offsetX = 0, offsetY = 0] = palette?.offset ?? [];
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const canZoom = zoomable && !!src;
 
   // Outer padding: 64/16 desktop/mobile. Bleed mode drops bottom padding so the
   // mesh gradient hugs the visible image bottom (no gradient strip below image).
@@ -97,8 +107,9 @@ export function CaseImage({
   }
 
   return (
+    <>
     <div
-      className={cn("relative", mobilePaddingClass)}
+      className={cn("relative", mobilePaddingClass, className, canZoom && "cursor-zoom-in")}
       style={{
         borderRadius: 24,
         overflow: "clip",
@@ -106,6 +117,7 @@ export function CaseImage({
         ...(outerPadding ? { padding: outerPadding } : {}),
         ...(src ? {} : { aspectRatio: aspect }),
       }}
+      onClick={canZoom ? () => setLightboxOpen(true) : undefined}
     >
       {/* Animated mesh gradient */}
       <div
@@ -160,6 +172,118 @@ export function CaseImage({
           />
         </div>
       )}
+
+      {/* Mobile-only fullscreen affordance — sits above the mesh + image */}
+      {canZoom && (
+        <button
+          type="button"
+          onClick={(e) => {
+            e.stopPropagation();
+            setLightboxOpen(true);
+          }}
+          aria-label="Open image fullscreen"
+          className="
+            absolute top-3 right-3 z-10
+            flex h-9 w-9 items-center justify-center
+            rounded-full bg-bg outline-1 outline-rule-strong
+            shadow-[var(--shadow-chip)]
+            transition-[box-shadow] duration-[var(--duration-medium)] ease-[var(--ease-out)]
+            hover:shadow-[var(--shadow-chip-hover)]
+            md:hidden
+          "
+        >
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="text-ink"
+          >
+            <polyline points="15 3 21 3 21 9" />
+            <polyline points="9 21 3 21 3 15" />
+            <line x1="21" x2="14" y1="3" y2="10" />
+            <line x1="3" x2="10" y1="21" y2="14" />
+          </svg>
+        </button>
+      )}
     </div>
+    {canZoom && lightboxOpen && (
+      <Lightbox src={src!} alt={alt} onClose={() => setLightboxOpen(false)} />
+    )}
+    </>
+  );
+}
+
+function Lightbox({
+  src,
+  alt,
+  onClose,
+}: {
+  src: StaticImageData;
+  alt: string;
+  onClose: () => void;
+}) {
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    document.addEventListener("keydown", onKey);
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [onClose]);
+
+  if (typeof document === "undefined") return null;
+
+  return createPortal(
+    <div
+      role="dialog"
+      aria-modal="true"
+      onClick={onClose}
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 p-4"
+    >
+      <Image
+        src={src}
+        alt={alt}
+        sizes="100vw"
+        className="max-h-full max-w-full w-auto h-auto"
+        style={{ touchAction: "pinch-zoom" }}
+        onClick={(e) => e.stopPropagation()}
+      />
+      <button
+        type="button"
+        onClick={onClose}
+        aria-label="Close fullscreen"
+        className="
+          fixed top-4 right-4
+          flex h-10 w-10 items-center justify-center
+          rounded-full bg-bg outline-1 outline-rule-strong
+          shadow-[var(--shadow-chip)]
+        "
+      >
+        <svg
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className="text-ink"
+        >
+          <line x1="18" x2="6" y1="6" y2="18" />
+          <line x1="6" x2="18" y1="6" y2="18" />
+        </svg>
+      </button>
+    </div>,
+    document.body,
   );
 }

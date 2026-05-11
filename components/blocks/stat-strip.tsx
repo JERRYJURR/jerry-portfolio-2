@@ -14,16 +14,16 @@ export function StatStrip({ stats }: { stats: Stat[] }) {
               <div
                 key={stat.label}
                 className={
-                  "flex flex-col gap-6 p-6 border-r border-rule" +
+                  "flex flex-col gap-4 md:gap-6 p-4 md:p-6 border-r border-rule" +
                   (i % 2 === 0 ? " border-l" : "") +
                   (i < 2 ? " border-b md:border-b-0 border-rule" : "") +
                   (i === 0 ? " md:border-l" : "")
                 }
               >
-                <div className="font-display text-[32px] font-normal tracking-[-0.05em] leading-none text-ink tabular-nums">
+                <div className="font-display text-[24px] md:text-[32px] font-normal tracking-[-0.05em] leading-none text-ink tabular-nums">
                   <CountUp value={stat.value} />
                 </div>
-                <div className="font-mono text-[13px] leading-4 tracking-[0.1em] uppercase text-ink-subtle">
+                <div className="font-mono text-[11px] md:text-[13px] leading-4 tracking-[0.1em] uppercase text-ink-subtle">
                   {stat.label}
                 </div>
               </div>

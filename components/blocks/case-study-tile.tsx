@@ -43,10 +43,8 @@ function CaseThumbnail({
 
   return (
     <div
-      className="relative flex-shrink-0"
+      className="relative flex-shrink-0 h-[180px] md:h-[238px] rounded-2xl md:rounded-3xl"
       style={{
-        height: 238,
-        borderRadius: 24,
         overflow: "clip",
         transform: "translateZ(0)",
         padding: "16px 16px 0",
@@ -138,14 +136,16 @@ export function CaseStudyTile({
           group-hover:bg-[var(--ambient)] group-active:bg-[var(--ambient-active)]"
       />
 
-      <div className="relative flex h-full flex-col">
+      <div className="relative flex h-full flex-col max-md:rounded-3xl max-md:bg-[var(--ambient)]">
         {imageSrc ? (
-          <CaseThumbnail src={imageSrc} alt={headline} palette={palette} hovered={hovered} />
+          <div className="max-md:p-2">
+            <CaseThumbnail src={imageSrc} alt={headline} palette={palette} hovered={hovered} />
+          </div>
         ) : (
           <MediaFrame aspect="16/9" padding={16} alt={headline} palette={palette} />
         )}
 
-        <div className="flex flex-1 flex-col gap-8 px-6 pt-6 pb-3">
+        <div className="flex flex-1 flex-col gap-6 md:gap-8 px-5 md:px-6 pt-2 md:pt-6 pb-4 md:pb-3">
           <div className="flex flex-1 flex-col gap-4">
             <div className="flex items-start justify-between gap-4">
               <div className="flex gap-2">
@@ -159,7 +159,7 @@ export function CaseStudyTile({
                   group-hover:translate-x-1 group-hover:text-ink"
               />
             </div>
-            <h3 className="font-display text-[20px] leading-[1.45] text-ink">
+            <h3 className="font-display text-[18px] md:text-[20px] leading-[1.25] md:leading-[1.45] text-ink">
               <span
                 className="bg-no-repeat bg-left-bottom bg-[length:0%_1px]
                   bg-[linear-gradient(currentColor,currentColor)] pb-px

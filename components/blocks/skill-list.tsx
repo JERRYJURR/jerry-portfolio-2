@@ -31,7 +31,7 @@ export function SkillList() {
           <div
             key={skill.label}
             className={
-              "flex items-center gap-4 px-6 py-6" +
+              "flex items-center gap-4 px-4 py-3 md:px-6 md:py-6" +
               (i < skills.length - 1 ? " border-b border-rule" : "")
             }
           >
@@ -40,7 +40,7 @@ export function SkillList() {
               size={24}
               strokeWidth={2}
             />
-            <span className="font-display text-[20px] leading-none text-ink">
+            <span className="font-display text-[14px] md:text-[20px] leading-none text-ink">
               {skill.label}
             </span>
           </div>

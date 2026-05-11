@@ -53,6 +53,8 @@ export type Block =
       bleed?: boolean;
       bleedFactor?: number;
       aspect?: string;
+      /** Opt out of mobile tap-to-zoom lightbox. Default true. */
+      zoomable?: boolean;
     }
   | {
       kind: "imageWide";
@@ -61,6 +63,8 @@ export type Block =
       bleed?: boolean;
       bleedFactor?: number;
       aspect?: string;
+      /** Opt out of mobile tap-to-zoom lightbox. Default true. */
+      zoomable?: boolean;
     }
   | {
       kind: "section";
@@ -130,6 +134,7 @@ export const caseStudies: Record<string, CaseStudy> = {
         images: [raijin3a, raijin3b],
         caption:
           "The old flow’s friction scaled with campaign count: every additional giveaway meant another round-trip through the homepage and dedicated giveaway pages. A new improved flow should batch all tasks into a single queue, making per-giveaway navigation obsolete.",
+        zoomable: false,
       },
       {
         kind: "section",

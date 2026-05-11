@@ -11,10 +11,10 @@ export function MetaCard({ rows }: { rows: Row[] }) {
             (i < rows.length - 1 ? " border-b border-rule" : "")
           }
         >
-          <span className="flex-1 font-mono text-[12px] leading-4 tracking-[0.1em] uppercase text-ink-subtle">
+          <span className="flex-1 font-mono text-[11px] md:text-[12px] leading-4 tracking-[0.1em] uppercase text-ink-subtle">
             {row.label}
           </span>
-          <span className="text-[16px] leading-[1.5] text-ink">
+          <span className="text-[14px] md:text-[16px] leading-[1.5] text-ink">
             {row.value}
           </span>
         </div>

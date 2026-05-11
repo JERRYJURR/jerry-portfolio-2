@@ -85,9 +85,9 @@ const rowBase =
   "hover:bg-hover-bg-soft focus-visible:bg-hover-bg-soft focus-visible:outline-none";
 
 const labelCls =
-  "flex-1 font-mono text-[12px] leading-4 tracking-[0.1em] uppercase text-ink-subtle";
+  "flex-1 font-mono text-[11px] md:text-[12px] leading-4 tracking-[0.1em] uppercase text-ink-subtle";
 
-const valueCls = "flex items-center gap-2 text-[16px] leading-[1.5]";
+const valueCls = "flex items-center gap-2 text-[14px] md:text-[16px] leading-[1.5]";
 
 const iconBase = "h-4 w-4 shrink-0 will-change-transform";
 
@@ -218,14 +218,14 @@ export function ProfileCard() {
       <div className="flex flex-1 flex-col gap-6">
         <Avatar size="md" src="/jerry.webp" alt="Jerry Kou" />
         <div className="flex flex-col gap-2">
-          <div className="font-display text-[20px] font-medium leading-none text-ink">
+          <div className="font-display text-[20px] font-normal md:font-medium leading-none text-ink">
             Jerry Kou
           </div>
-          <div className="font-mono text-[12px] leading-4 tracking-[0.1em] uppercase text-ink-subtle">
+          <div className="font-mono text-[11px] md:text-[12px] leading-4 tracking-[0.1em] uppercase text-ink-subtle">
             Senior Product Designer
           </div>
         </div>
-        <div className="flex flex-col gap-4 text-[16px] leading-[1.5] text-ink-muted max-w-[40ch]">
+        <div className="flex flex-col gap-4 text-[14px] md:text-[16px] leading-[1.5] text-ink-muted max-w-[40ch]">
           <p>
             I&rsquo;m currently figuring out how to make designing with prompts
             as easy and smooth as designing with a pencil or mouse.

@@ -74,11 +74,11 @@ function AnimatedStat({
     : value;
 
   return (
-    <div className={"flex flex-col gap-4 p-6" + (!isLast ? " border-b border-rule" : "")}>
-      <div className="font-display text-[40px] font-normal tracking-[-0.05em] leading-none text-ink tabular-nums">
+    <div className={"flex flex-col gap-4 p-4 md:p-6" + (!isLast ? " border-b border-rule" : "")}>
+      <div className="font-display text-[24px] md:text-[40px] font-normal tracking-[-0.05em] leading-none text-ink tabular-nums">
         {displayed}
       </div>
-      <div className="font-mono text-[13px] leading-4 tracking-[0.1em] uppercase text-ink-subtle">
+      <div className="font-mono text-[11px] md:text-[13px] leading-4 tracking-[0.1em] uppercase text-ink-subtle">
         {label}
       </div>
     </div>
